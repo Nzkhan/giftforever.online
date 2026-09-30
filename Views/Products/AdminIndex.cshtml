@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Baganova.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="custom-border-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/Admin">Admin</a> 
+                <span class="mx-2">></span>  
+                <span>Products</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Products</h6>
+                    <a href="@Url.Action("Create")" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus-circle me-2"></i> Add Product
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductName)
+                                    </th>
+                                    <th class="text-center">
+                                        Image
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SKUNo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Price)
+                                    </th>
+                                    <th>
+                                        Stock
+                                    </th>
+                                    <th class="text-end">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                @Html.DisplayFor(modelItem => item.ProductName)
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            @if (!string.IsNullOrEmpty(item.Photo1))
+                                            {
+                                                <img loading="lazy" src="@item.Photo1" 
+                                                     style="height:40px; width:auto; object-fit: cover; border-radius: 4px;" 
+                                                     alt="Product image" />
+                                            }
+                                            else
+                                            {
+                                                <div style="height:40px; width:40px; background-color: #f5f5f5; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-image" style="color: rgba(0,0,0,0.2);"></i>
+                                                </div>
+                                            }
+                                        </td>
+                                        <td class="align-middle">
+                                            <span style="color: rgba(0,0,0,0.6); font-size: 0.875rem;">@Html.DisplayFor(modelItem => item.SKUNo)</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span style="font-weight: 500;">$@Html.DisplayFor(modelItem => item.Price)</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            @if (item.InStock > 0)
+                                            {
+                                                <span class="badge rounded-pill" style="background-color: rgba(3,218,198,0.1); color: var(--secondary-dark);">
+                                                    @item.InStock in stock
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge rounded-pill" style="background-color: rgba(176,0,32,0.1); color: var(--error);">
+                                                    Out of stock
+                                                </span>
+                                            }
+                                        </td>
+                                        <td class="align-middle text-end">
+                                            <div class="d-flex justify-content-end">
+                                                <a href="@Url.Action("Edit", new { id = item.ID })" class="btn btn-sm me-2" style="color: var(--primary-color);" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="@Url.Action("ProductsPhotos", new { prodid = item.ID })" class="btn btn-sm me-2" style="color: var(--secondary-color);" title="Photos">
+                                                    <i class="fas fa-image"></i>
+                                                </a>
+                                                <a href="@Url.Action("Delete", new { id = item.ID })" class="btn btn-sm" style="color: var(--error);" title="Delete">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

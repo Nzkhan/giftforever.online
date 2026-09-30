@@ -1,0 +1,182 @@
+﻿@model Baganova.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var prodtype = ViewBag.TypeID;
+}
+
+<!-- Font Awesome for file icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="/Content/css/style.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Products/adminindex" style="color:white">Product </a> <span class="mx-2 mb-0">></span> <span>Add product</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+                    @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <p class="text-black" style="font-weight:500;text-align:center;font-size:1.5rem;">Add Product</p>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Product Name" } })
+                                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="font-weight-normal pl-4 text-black">Category</label>
+                                <div class="col-sm-6">
+                                    <select class="selectpicker" onchange="checked(this)" id="ProductMapping" name="ProductMapping" multiple data-live-search="true">
+                                        @{
+                                            if (prodtype != null)
+                                            {
+                                                foreach (var type in prodtype)
+                                                {
+                                                    <option value="@type.Value">@type.Text</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    <input id='ProductMappingValues' name='ProductMappingValues' hidden />
+                                </div>
+                            </div>
+                            <!-- Modern file upload fields -->
+                            @for (int i = 1; i <= 10; i++)
+                            {
+                                <div class="product-upload">
+                                    <span class="upload-icon"><i class="fa-solid fa-file-image"></i></span>
+                                    <label for="Photo">
+                                        <span>Photo @i</span>
+                                        <input type="file" id="Photo" name="Photo" accept="image/*" />
+                                    </label>
+                                    <img loading="lazy" id="Photo@iPreviewPhoto" alt="No Image Uploaded" src="#" style="display:none;" />
+                                </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @type = "number", @step = ".01", @placeholder = "Price" } })
+                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity" } })
+                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.InStock, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.InStock, new { htmlAttributes = new { @class = "form-control", @type = "number", @placeholder = "In Stock" } })
+                                    @Html.ValidationMessageFor(model => model.InStock, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Specification, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Specification, new { htmlAttributes = new { @class = "form-control", @placeholder = "Specification" } })
+                                    @Html.ValidationMessageFor(model => model.Specification, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductDetails, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.TextAreaFor(model => model.ProductDetails, new { rows = "6", @class = "form-control", @placeholder = "Product Details" })
+                                    @Html.ValidationMessageFor(model => model.ProductDetails, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductDescription, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.TextAreaFor(model => model.ProductDescription, new { rows = "6", @class = "form-control", @placeholder = "Product Description" })
+                                    @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Usage, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Usage, new { htmlAttributes = new { @class = "form-control", @placeholder = "Usage" } })
+                                    @Html.ValidationMessageFor(model => model.Usage, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SKUNo, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.SKUNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "SKU Number" } })
+                                    @Html.ValidationMessageFor(model => model.SKUNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="createbtn mr-3" />
+                                    @Html.ActionLink("Back to List", "AdminIndex", null, new { @class = "backtolistbtn" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+<script defer>
+    // Modern preview for file uploads
+    for (let i = 1; i <= 10; i++) {
+        document.addEventListener('DOMContentLoaded', function() {
+            let input = document.getElementById(`Photo${i}`);
+            let img = document.getElementById(`Photo${i}PreviewPhoto`);
+            if (input) {
+                input.addEventListener('change', function(e) {
+                    let file = e.target.files[0];
+                    if (file) {
+                        img.src = URL.createObjectURL(file);
+                        img.style.display = 'block';
+                    } else {
+                        img.src = '#';
+                        img.style.display = 'none';
+                    }
+                });
+            }
+        });
+    }
+</script>
+<script>
+    $('select').selectpicker();
+    function checked(selectObject) {
+        var selected = [];
+        for (var option of document.getElementById('ProductMapping').options) {
+            if (option.selected) {
+                selected.push(option.value);
+            }
+        }
+        select = document.getElementById('ProductMappingValues')
+        select.value = selected
+    }
+    function callonload() {
+        console.log("called at the load time to bind data")
+    }
+    callonload();
+</script>

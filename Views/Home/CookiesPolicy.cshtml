@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Cookies Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .cookies-main {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(76,76,255,0.08);
+        padding: 2.5rem 2rem;
+        margin: 2rem auto;
+        max-width: 1100px;
+    }
+    .cookies-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-align: left;
+    }
+    .cookies-subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        letter-spacing: 0.5px;
+    }
+    .cookies-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 0 2.5rem;
+        align-items: flex-start;
+    }
+    .cookies-label {
+        font-weight: 700;
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 2.2rem;
+        text-align: left;
+    }
+    .cookies-detail {
+        color: #444;
+        font-size: 1.05rem;
+        margin-bottom: 2.2rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+    .cookies-detail ul {
+        margin-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .cookies-detail table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+    .cookies-detail th, .cookies-detail td {
+        border: 1px solid #eee;
+        padding: 0.75rem;
+        text-align: left;
+    }
+    .cookies-detail th {
+        background: #f7f7fa;
+        font-weight: 600;
+    }
+    @@media (max-width: 900px) {
+        .cookies-grid {
+            grid-template-columns: 1fr;
+        }
+        .cookies-label, .cookies-detail {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Cookies Policy</strong></div>
+        </div>
+    </div>
+</div>
+
+<section class="cookies-main">
+    <div class="cookies-title">Cookies Policy</div>
+    <div class="cookies-subtitle">How we use cookies and similar technologies</div>
+    <div class="cookies-grid">
+        <div class="cookies-label">What Are Cookies?</div>
+        <div class="cookies-detail">Cookies are small text files stored on your device by your web browser. They help websites recognise your device and remember your preferences.</div>
+        <div class="cookies-label">Types of Cookies We Use</div>
+        <div class="cookies-detail">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cookie Type</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Essential Cookies</td>
+                        <td>Necessary for the website to function (e.g., basket, checkout, login)</td>
+                        <td>Session ID</td>
+                    </tr>
+                    <tr>
+                        <td>Performance & Analytics Cookies</td>
+                        <td>Track website usage to improve performance</td>
+                        <td>Google Analytics</td>
+                    </tr>
+                    <tr>
+                        <td>Functional Cookies</td>
+                        <td>Remember your preferences and settings</td>
+                        <td>Language preference</td>
+                    </tr>
+                    <tr>
+                        <td>Advertising / Targeting Cookies</td>
+                        <td>Deliver relevant ads on our site or third-party sites</td>
+                        <td>Facebook Pixel, Google Ads</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cookies-label">Third-Party Cookies</div>
+        <div class="cookies-detail">We may use third-party services for analytics, marketing, and advertising. These third parties may place cookies on your device.<br />Examples include:<ul><li>Google Analytics</li><li>Facebook Pixel</li><li>Google Ads / AdRoll</li></ul>These third parties are responsible for their own privacy practices.</div>
+        <div class="cookies-label">Managing Cookies</div>
+        <div class="cookies-detail">You can manage or disable cookies through your browser settings:<ul><li>Chrome: Settings → Privacy → Cookies</li><li>Firefox: Options → Privacy & Security → Cookies</li><li>Edge: Settings → Site permissions → Cookies</li><li>Safari: Preferences → Privacy → Cookies</li></ul>Please note that disabling certain cookies may affect website functionality.</div>
+        <div class="cookies-label">Consent & Changes</div>
+        <div class="cookies-detail"><ul><li>On your first visit, you may see a cookie banner asking for consent for non-essential cookies.</li><li>You can withdraw consent at any time by adjusting your browser settings or following the cookie banner instructions.</li><li>We may update this Cookies Policy from time to time; changes will be posted on this page.</li></ul></div>
+        <div class="cookies-label">Contact Us</div>
+        <div class="cookies-detail">For any questions about our cookies or how we use your data:<br />Gift Forever Ltd<br />📍 41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX<br />📧 customercare@giftforever.online<br />📞 +44 2039 871 975</div>
+    </div>
+</section>

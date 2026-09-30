@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Baganova.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Admin</a> <span class="mx-2 mb-0">/</span> <strong class="text-black ">Blog</strong></div>
+        </div>
+    </div>
+</div>
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row mb-5 ">
+            <form class="col-md-12" method="post">
+                <div class="site-blocks-table">
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-black", @style = "padding-top:10px" })
+                    </p>
+                    <table class="table  table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Photo)
+                                </th>
+
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Photo)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

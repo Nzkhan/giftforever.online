@@ -1,0 +1,85 @@
+@{
+    ViewBag.Title = "Copyright Notice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .privacy-main {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(76,76,255,0.08);
+        padding: 2.5rem 2rem;
+        margin: 2rem auto;
+        max-width: 1100px;
+    }
+    .privacy-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-align: left;
+    }
+    .privacy-subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        letter-spacing: 0.5px;
+    }
+    .privacy-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 0 2.5rem;
+        align-items: flex-start;
+    }
+    .privacy-label {
+        font-weight: 700;
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 2.2rem;
+        text-align: left;
+    }
+    .privacy-detail {
+        color: #444;
+        font-size: 1.05rem;
+        margin-bottom: 2.2rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+    .privacy-detail ul {
+        margin-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    @@media (max-width: 900px) {
+        .privacy-grid {
+            grid-template-columns: 1fr;
+        }
+        .privacy-label, .privacy-detail {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Copyright Notice</strong></div>
+        </div>
+    </div>
+</div>
+
+<section class="privacy-main">
+    <div class="privacy-title">Copyright Notice (UK Compliant – With Legal Enforcement Clause)</div>
+    <div class="privacy-subtitle">Protection of intellectual property and content</div>
+    <div class="privacy-grid">
+        <div class="privacy-label">© GiftForever Ltd. All rights reserved.</div>
+        <div class="privacy-detail">
+            All content on this website — including text, images, graphics, logos, videos, product descriptions, digital downloads, and the overall site design — is the exclusive property of <strong>GiftForever Ltd</strong> and is protected under the <strong>Copyright, Designs and Patents Act 1988 (UK)</strong> and applicable international copyright laws.
+            No part of this website may be copied, reproduced, distributed, published, stored, displayed, transmitted, or used to create derivative works without the <strong>prior written permission</strong> of GiftForever Ltd.
+            Unauthorised use of any content from this website may result in legal action, including — but not limited to — civil claims for damages, injunctive relief, recovery of  legal costs, and, where applicable, <strong>criminal prosecution</strong> under UK copyright law.
+            <strong>Under no circumstances is any person/entity/company permitted to copy or misuse the content on this website. Any such action will result in appropriate lawful proceedings.</strong>
+
+        </div>
+    </div>
+</section>

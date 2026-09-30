@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Baganova.Models.Address>
+
+@{
+    ViewBag.Title = "Addresses";
+    int session = Convert.ToInt32(Session["userid"]);
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+
+    var mediaCss = "@media (max-width:576px) { .address-item { padding: 16px; } .address-item .btn { font-size:12px; padding:6px 8px; } }";
+}
+
+<section class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home" style="color:white">Home</a> <span class="mx-2 mb-0">></span> <span>Profile</span> <span class="mx-2 mb-0">></span> <span>Addresses</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row justify-content-center py-4">
+            <div class="col-lg-9">
+                <div class="p-4 p-lg-5">
+                    <div class="d-flex align-items-center mb-3">
+                        <h3 class="mb-0" style="font-weight:700">Your addresses</h3>
+                        <div style="flex:1 1 auto"></div>
+                        @Html.ActionLink("Back to Profile", "Details", "UserDetails", new { id = Session["userid"] }, new { @class = "site-btn", style = "padding:8px 12px;border-radius:6px;margin-right:8px;" })
+                        @Html.ActionLink("Add New address", "Create", null, new { @class = "site-btn", style = "padding:8px 12px;border-radius:6px;" })
+                    </div>
+
+                    <div class="addresses-list">
+                        @{
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                ++i;
+                                var isActive = item.IsActive;
+                                var panelBg = isActive ? "#f0f9ff" : "transparent";
+                                <div class="address-item mb-3" style=$"padding:20px;border:1px solid #eef0f2;background:{panelBg};border-radius:6px;">
+                                    <div class="d-flex align-items-start">
+                                        <div style="flex:1 1 auto;">
+                                            <div style="display:flex;align-items:center;gap:10px;">
+                                                <p style="margin:0;font-weight:700;color:#111;">Address #@i</p>
+                                                @if (isActive)
+                                                {
+                                                    <span class="primary-badge">Primary</span>
+                                                }
+                                            </div>
+                                            <p style="margin:4px 0;color:#6b7280;">@Html.DisplayFor(modelItem => item.address)</p>
+                                        </div>
+
+                                        <div style="flex:0 0 auto; display:flex; gap:8px; align-items:center;">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-outline-primary" })
+                                            <button class="btn btn-sm btn-outline-danger" type="button" onclick="DeleteAddress(@item.ID)">Delete</button>
+                                            @if (!isActive)
+                                            {
+                                                <button class="btn btn-sm btn-outline-secondary" type="button" onclick="SetMainAddress(@item.ID,@item.UserDetailsID)">Set As Main</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-sm btn-secondary" type="button" disabled>Current</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Flat, sleek styles for addresses list */
+    .address-item p { line-height:1.4; }
+    .address-item p:first-child { font-size:14px; }
+    .addresses-list .address-item + .address-item { margin-top: 12px; }
+    .primary-badge { background:#1e90ff; color:#fff; padding:4px 8px; border-radius:12px; font-size:12px; font-weight:600; }
+    @Html.Raw(mediaCss)
+</style>
+
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this address");
+    }
+
+    function confirmChangeAddress() {
+        return confirm("Are you sure you want to change this address");
+    }
+
+    function DeleteAddress(id) {
+        if (confirmDelete()) {
+            const url = "/addresses/Delete/" + id;
+            $.ajax({
+                method: "POST",
+                url: url,
+                success: function () {
+                    window.location.reload();
+                },
+                error: function (e) {
+                    console.error("Error deleting address:", e);
+                }
+            });
+        }
+    }
+
+    function SetMainAddress(id, userdetailId) {
+        if (confirmChangeAddress()) {
+            const url = "/addresses/SetMainAddress";
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {
+                    id: id,
+                    userDetailsID: userdetailId
+                },
+                success: function (response) {
+                    if (response && response.success) {
+                        window.location.reload();
+                    } else {
+                        alert(response && response.message ? response.message : 'Unable to set main address');
+                    }
+                },
+                error: function (e) {
+                    console.error("Error setting main address:", e);
+                }
+            });
+        }
+    }
+</script>

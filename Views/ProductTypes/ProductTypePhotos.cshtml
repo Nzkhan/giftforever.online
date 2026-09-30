@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "ProductTypePhotos";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var PT = ViewBag.PT;
+}
+
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Producttypes/adminindex" style="color:white">Product type</a> <span class="mx-2 mb-0">></span> <span>Product type photo</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+                    <p style="font-weight:500;text-align:center" class="text-black">Product Photos : @PT.TypeName</p>
+                    <div class="my-3 mt-5"> 
+                
+
+                        @Html.ActionLink("Change Home Page Photo", "changephotos", new { id = PT.ID, photo = 1 }, new { @class = "ChangePhotoButton" })
+
+                        <br />
+                        <br />
+                        <img loading="lazy" style="max-width:100%" src="../@PT.HomePhoto" />
+                    </div>
+                   
+                    <div class="my-3">
+                        <br />
+                        <br />
+                        @Html.ActionLink("Change Brand Page Photo", "changephotos", new { id = PT.ID, photo = 2 }, new { @class = "ChangePhotoButton" })
+                        <br />
+                        <br />
+                        <img loading="lazy" style="max-width:100%" src="../@PT.Photo" />
+                    </div>
+                 
+                   
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>

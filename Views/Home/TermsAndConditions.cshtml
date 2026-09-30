@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Terms & Conditions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .terms-main {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(76,76,255,0.08);
+        padding: 2.5rem 2rem;
+        margin: 2rem auto;
+        max-width: 1100px;
+    }
+    .terms-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-align: left;
+    }
+    .terms-subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        letter-spacing: 0.5px;
+    }
+    .terms-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 0 2.5rem;
+        align-items: flex-start;
+    }
+    .terms-label {
+        font-weight: 700;
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 2.2rem;
+        text-align: left;
+    }
+    .terms-detail {
+        color: #444;
+        font-size: 1.05rem;
+        margin-bottom: 2.2rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+    .terms-detail ul {
+        margin-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    @@media (max-width: 900px) {
+        .terms-grid {
+            grid-template-columns: 1fr;
+        }
+        .terms-label, .terms-detail {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Terms & Conditions</strong></div>
+        </div>
+    </div>
+</div>
+
+<section class="terms-main">
+    <div class="terms-title">Terms & Conditions</div>
+    <div class="terms-subtitle">Please read our terms carefully. The title is on the left, details are shown on the right.</div>
+    <div class="terms-grid">
+        <div class="terms-label">Company Information</div>
+        <div class="terms-detail">This website is operated by Gift Forever Ltd, registered in England & Wales under company number 16227874.<br />Registered office: 41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX<br />Email: customercare@giftforever.online<br />Phone: +44 2039 871 975</div>
+        <div class="terms-label">Eligibility</div>
+        <div class="terms-detail"><ul><li>You must be at least 18 years old to purchase from our website.</li><li>If you are under 18, you may use the website only under the supervision of a parent/guardian.</li></ul></div>
+        <div class="terms-label">Products & Pricing</div>
+        <div class="terms-detail"><ul><li>All products are subject to availability.</li><li>We make every effort to ensure product descriptions and prices are accurate. However, errors may occur, in which case we reserve the right to correct them.</li><li>Prices are inclusive of VAT (where applicable) and shown in GBP (£).</li></ul></div>
+        <div class="terms-label">Orders & Payment</div>
+        <div class="terms-detail"><ul><li>By placing an order, you are offering to purchase a product subject to these terms.</li><li>We will confirm acceptance of your order via email once payment is received.</li><li>Payments are processed securely through third-party providers.</li></ul></div>
+        <div class="terms-label">Delivery</div>
+        <div class="terms-detail"><ul><li>We deliver across the UK .</li><li>Delivery times are estimates only; delays may occur beyond our control.</li><li>Risk of loss or damage passes to you once the goods are delivered.</li></ul></div>
+        <div class="terms-label">Cancellations & Returns</div>
+        <div class="terms-detail"><ul><li>Under the Consumer Contracts Regulations 2013, you have the right to cancel most online purchases within 14 days of delivery for a full refund.</li><li>Some items are non-returnable:</li><ul><li>Personalised or custom-made gifts</li><li>Sealed items (e.g., toiletries, cosmetics) once opened</li></ul><li>To return an item, please notify us at customercare@giftforever.online and send it back in original condition within 14 days.</li><li>Refunds will be issued within 14 days of receiving the returned item, using the same payment method.</li></ul></div>
+        <div class="terms-label">Faulty or Damaged Items</div>
+        <div class="terms-detail"><ul><li>If your item arrives damaged or faulty, please contact us within 48 hours of receipt with photos.</li><li>We will arrange a replacement, repair, or refund in line with the Consumer Rights Act 2015.</li></ul></div>
+        <div class="terms-label">Intellectual Property</div>
+        <div class="terms-detail"><ul><li>All content on this website (logos, images, text, product descriptions) belongs to Gift Forever Ltd and is protected by copyright and trademark law.</li><li>You may not reproduce, distribute, or copy any content without our permission.</li></ul></div>
+        <div class="terms-label">Limitation of Liability</div>
+        <div class="terms-detail"><ul><li>We are not liable for indirect or consequential losses (such as loss of enjoyment, missed occasions, etc.).</li><li>Our maximum liability for any claim is limited to the price paid for the product.</li></ul></div>
+        <div class="terms-label">Privacy & Data Protection</div>
+        <div class="terms-detail"><ul><li>We comply with the UK GDPR and the Data Protection Act 2018.</li><li>For details on how we use your data, please see our Privacy Policy.</li></ul></div>
+        <div class="terms-label">Governing Law</div>
+        <div class="terms-detail"><ul><li>These Terms are governed by the laws of England & Wales.</li><li>Any disputes will be subject to the exclusive jurisdiction of the courts of England & Wales.</li></ul></div>
+        <div class="terms-label">Contact Us</div>
+        <div class="terms-detail">For questions regarding these Terms, please contact us:<br />Gift Forever Ltd<br />📍 41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX<br />📧 customercare@giftforever.online<br />📞 +44 2039 871 975</div>
+    </div>
+</section>
+

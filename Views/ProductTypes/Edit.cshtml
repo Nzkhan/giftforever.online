@@ -1,0 +1,111 @@
+﻿@model Baganova.Models.ProductType
+
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+    // Pre-calculate image visibility conditions
+    bool showHomePhoto = Model != null && !string.IsNullOrEmpty(Model.HomePhoto);
+    bool showPhoto = Model != null && !string.IsNullOrEmpty(Model.Photo);
+    bool showImagesSection = showHomePhoto || showPhoto;
+}
+
+<div class="custom-border-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/Admin">Admin</a> 
+                <span class="mx-2">></span> 
+                <a href="/Producttypes/adminindex">Categories</a> 
+                <span class="mx-2">></span> 
+                <span>Edit Category</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">Edit Product Category</h6>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "ProductTypes", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3", style = "font-size: 0.875rem;" })
+                        @Html.HiddenFor(model => model.ID)
+                        @Html.HiddenFor(model => model.Photo)
+                        @Html.HiddenFor(model => model.HomePhoto)
+                        
+                        <div class="form-group mb-3">
+                            <label for="TypeName" style="font-size: 0.875rem; color: rgba(0,0,0,0.6);">Category Name <span style="color: var(--error);">*</span></label>
+                            @Html.EditorFor(model => model.TypeName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter category name" } })
+                            @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger", style = "font-size: 0.75rem; display: block; margin-top: 4px;" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="Description" style="font-size: 0.875rem; color: rgba(0,0,0,0.6);">Description</label>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3", placeholder = "Enter category description" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger", style = "font-size: 0.75rem; display: block; margin-top: 4px;" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="ParentTypeID" style="font-size: 0.875rem; color: rgba(0,0,0,0.6);">Parent Category</label>
+                            @Html.DropDownList("ParentTypeID", ViewBag.ParentTypeID as SelectList, "-- Select Parent Category (Optional) --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ParentTypeID, "", new { @class = "text-danger", style = "font-size: 0.75rem; display: block; margin-top: 4px;" })
+                            <small style="font-size: 0.75rem; color: rgba(0,0,0,0.6); display: block; margin-top: 4px;">Select a parent category if this is a subcategory</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="DisplayOrder" style="font-size: 0.875rem; color: rgba(0,0,0,0.6);">Display Order</label>
+                            @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter display order" } })
+                            @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger", style = "font-size: 0.75rem; display: block; margin-top: 4px;" })
+                            <small style="font-size: 0.75rem; color: rgba(0,0,0,0.6); display: block; margin-top: 4px;">Controls the order in menus (smaller numbers appear first)</small>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                @Html.EditorFor(model => model.ShowInNavigation, new { htmlAttributes = new { @class = "form-check-input" } })
+                                <label for="ShowInNavigation" class="form-check-label" style="font-size: 0.875rem; color: rgba(0,0,0,0.87);">
+                                    Show in Navigation
+                                </label>
+                            </div>
+                            <small style="font-size: 0.75rem; color: rgba(0,0,0,0.6); display: block; margin-top: 4px;">Enable to show this category in site navigation menus</small>
+                        </div>
+
+                        <div class="form-group mb-4" style="display: @(showImagesSection ? "block" : "none");">
+                            <label style="font-size: 0.875rem; color: rgba(0,0,0,0.6);">Current Images</label>
+                            <div class="d-flex flex-wrap gap-3 mt-2">
+                                <div style="display: @(showHomePhoto ? "block" : "none");">
+                                    <img src="@(showHomePhoto ? Model.HomePhoto : "")" alt="Thumbnail" style="height: 80px; width: auto; border-radius: 4px; object-fit: cover;" />
+                                    <p style="font-size: 0.75rem; color: rgba(0,0,0,0.6); margin-top: 4px;">Thumbnail</p>
+                                </div>
+                                <div style="display: @(showPhoto ? "block" : "none");">
+                                    <img src="@(showPhoto ? Model.Photo : "")" alt="Banner" style="height: 80px; width: auto; border-radius: 4px; object-fit: cover;" />
+                                    <p style="font-size: 0.75rem; color: rgba(0,0,0,0.6); margin-top: 4px;">Banner</p>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <a href="@Url.Action("ProductTypePhotos", new { PTid = Model.ID })" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-image me-1"></i> Change Images
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <a href="@Url.Action("AdminIndex")" class="btn btn-outline-secondary me-2">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i> Save
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

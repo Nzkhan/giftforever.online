@@ -1,0 +1,180 @@
+﻿@model Baganova.Models.Cart
+
+@{
+    ViewBag.Title = "Thanks for your order!";
+    int session = Convert.ToInt32(Session["userid"]);
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+
+    var OrderDetails = ViewBag.OrderDetails;
+}
+
+<br />
+<br />
+<div class="site-section">
+    <div class="container">
+        <div class="title-section mb-5">
+            <h2 class="text-uppercase">Thank you for your order</h2>
+            <p class="lead">Your payment was processed. We've emailed you the receipt and order details.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="h5" style="font-weight:600;">Order summary</h3>
+
+                        <div class="table-responsive">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Image</th>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product-price"></th>
+                                        <th class="product-quantity">Quantity</th>
+                                        <th class="product-total">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (OrderDetails != null)
+                                    {
+                                        double totalPrice = 0;
+                                        if (OrderDetails.Count > 0)
+                                        {
+
+
+                                            foreach (var item in OrderDetails)
+                                            {
+                                                totalPrice += Convert.ToDouble(item.total);
+                                                
+                                                <tr>
+                                                    <td class="product-thumbnail">
+                                                        <img loading="lazy" src="@item.img" style="height: 50px;" alt="Image" class="img-fluid">
+                                                    </td>
+                                                    <td class="product-name">
+                                                        <h2 class="h5 text-black">@item.productname</h2>
+                                                    </td>
+                                                    <td>£ @item.price</td>
+                                                    <td>x</td>
+                                                    <td>@item.quantity</td>
+                                                    <td>£ @item.total</td>
+                                                </tr>
+
+                                            }
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    Delivery charges
+                                                </td>
+                                                <td class="product-name">
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>£ 3.99</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    Amount charged
+                                                </td>
+                                                <td class="product-name">
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                @{
+                                                    totalPrice = totalPrice + 3.99;
+                                                    }
+                                                <td>£ @totalPrice.ToString("F2")</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    Data Not Found!
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                Data Not Found!
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <p class="mb-0">We appreciate your business! If you have any questions, please email <a href="mailto:customercare@giftforever.online">customercare@giftforever.online</a>.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="h6">Payment details</h4>
+
+                        <div class="mb-3">
+                            @if (ViewBag.IsPaid != null && (bool)ViewBag.IsPaid)
+                            {
+                                <span class="badge badge-success">Paid</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-warning">Pending</span>
+                            }
+                        </div>
+
+                        <dl class="row">
+                            <dt class="col-sm-5">Charge ID</dt>
+                            <dd class="col-sm-7">@ViewBag.chargeID ?? "-"</dd>
+
+                            <dt class="col-sm-5">Status</dt>
+                            <dd class="col-sm-7">@ViewBag.Status ?? "-"</dd>
+
+                            <dt class="col-sm-5">Payment Intent</dt>
+                            <dd class="col-sm-7">@ViewBag.PaymentIntentID ?? "-"</dd>
+
+                            <dt class="col-sm-5">Method</dt>
+                            <dd class="col-sm-7">@ViewBag.PaymentMethod ?? "-"</dd>
+
+                        </dl>
+
+                        @if (!string.IsNullOrEmpty(ViewBag.ReceiptUrl as string))
+                        {
+                            <a class="btn btn-primary btn-block" target="_blank" href="@ViewBag.ReceiptUrl">View / Download Receipt</a>
+                        }
+
+                        <a class="btn btn-outline-secondary btn-block mt-2" href="/">Continue shopping</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-2">Need help?</h6>
+                        <p class="small mb-1">If you have any issues with your order, contact our support team and provide your order reference.</p>
+                        <a href="mailto:customercare@giftforever.online" class="small">customercare@giftforever.online</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<br />

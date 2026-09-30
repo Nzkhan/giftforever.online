@@ -1,0 +1,184 @@
+﻿
+@{
+    var user = ViewBag.user;
+    var carts = ViewBag.cart;
+    var addresses = ViewBag.address;
+    var subtotal = ViewBag.total;
+    //int session = Convert.ToInt32(Session["userid"]);
+    var grandtotal = 100 + subtotal;
+    var userdid = ViewData["userdid"];
+    int session = Convert.ToInt32(Session["userid"]);
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Home</a> <span class="mx-2 mb-0">/</span> <a href="cart.html">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+        </div>
+    </div>
+</div>
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h2 class="h3 mb-3 text-black">Billing Details</h2>
+                <div class="p-3 p-lg-5 border">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" disabled value="@user.FirstName" id="c_fname" name="c_fname">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" disabled id="c_lname" value="@user.LastName" name="c_lname">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <form>
+                            @{
+                                foreach (var address in addresses)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-1 col-sm-1" style="max-width:9%">
+                                            <input  id="address" name="address" type="radio" value="@address.ID" />
+                                        </div>
+                                        <div class="col-md-11 col-sm-11" style="max-width:90%">
+                                            <textarea type="" class="form-control" disabled style="height:100px" placeholder="Apartment, suite, unit etc. (optional)">@address.address</textarea>
+                                        </div>
+                                    </div>
+                                    <br />
+                                }
+                            }
+                        </form>
+                        <button class="btn btn-black" onclick="window.location='/addresses/index/@userdid'">Add New Address?</button>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-md-12">
+                        <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="c_email_address" disabled value="@user.Email" name="c_email_address">
+                    </div> 
+                    <br />
+                    <div class="col-md-12">
+                        <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="c_phone" disabled name="c_phone" value="@user.Mobile" placeholder="Phone Number">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <h2 class="h3 mb-3 text-black">Your Order</h2>
+                        <div class="p-3 p-lg-5 border">
+                            <table class="table site-block-order-table mb-5">
+                                <thead>
+                                <th>Product</th>
+                                <th>Total</th>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var cart in carts)
+                                        {
+                                            <tr>
+                                                <td>@cart.productname <strong class="mx-2">x</strong> @cart.quantity</td>
+                                                <td>₹ @cart.total</td>
+                                            </tr>
+                                        }
+                                    }
+                                    <tr>
+                                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                                        <td class="text-black">₹ @subtotal</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-black font-weight-bold"><strong>Delivery Charges</strong><br /><small>(Out of Mumbai)</small></td>
+                                        <td class="text-black">₹ 100</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                                        <td class="text-black font-weight-bold"><strong>₹ @grandtotal</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="border p-3 mb-3">
+                                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Pay Now (Paytm)</a></h3>
+                                <div class="collapse" id="collapsecheque" disabled>
+                                    <div class="py-2">
+                                        <p class="mb-0">click the below button for payment and pay, later click on place order.</p>
+                                        <a class="btn btn-black" href="https://p-y.tm/OQeV-m8">Pay with Paytm</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border p-3 mb-5">
+                                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Cash On Delivery</a></h3>
+                                <div class="collapse" id="collapsepaypal">
+                                    <div class="py-2">
+                                        <p class="mb-0">Cash on Delivery is available on all products for now.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-lg btn-block" onclick="placeorder()">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function placeorder() {
+        debugger;
+        var addressid = getcheckedAddress();
+        if (addressid != false)
+        {
+            $.ajax({
+                type: "POST",
+                url: '/Orders/PlaceOrder?addressid=' + addressid,
+                data: param = "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                if (data == 1)
+                {
+                    window.location.href = "/Orders/ThankYou";
+                }
+                else
+                {
+                    $.notify("Product out of stock", { color: "#fff", background: "#D44950" });
+                }
+            }
+
+            function errorFunc() {
+                $.notify("Product out of stock", { color: "#fff", background: "#D44950" });
+            }
+        }
+       
+    }
+
+    function getcheckedAddress()
+    {
+        var radioValue = $("input[name='address']:checked").val();
+        if(radioValue)
+        {
+            return radioValue;
+        }
+        else
+        {
+            $.notify("Please select Address", { color: "#fff", background: "#D44950" });
+            return false;
+        }
+    }
+</script>

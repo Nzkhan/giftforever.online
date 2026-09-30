@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<Baganova.Models.Video>
+
+@{
+    ViewBag.Title = "Video";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Video</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VideoLink)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VideoLink)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VideoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
+        </td>
+    </tr>
+}
+
+</table>

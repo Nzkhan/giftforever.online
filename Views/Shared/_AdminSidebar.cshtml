@@ -1,0 +1,251 @@
+@using Baganova.Models;
+@{
+    // Get notification data
+    var db = new PurestContext();
+    var lowStockThreshold = 5;
+    var lowStockProducts = db.Products.Where(p => p.InStock <= lowStockThreshold && p.InStock > 0).ToList();
+    var outOfStockProducts = db.Products.Where(p => p.InStock == 0).ToList();
+    var recentOrders = db.Orders.OrderByDescending(o => o.CreatedOn).Take(3).ToList();
+    var totalNotifications = lowStockProducts.Count + outOfStockProducts.Count + recentOrders.Count;
+    
+    // Helper function to determine if a menu item is active
+    Func<string, bool> isActive = (string controller) => {
+        return ViewContext.RouteData.Values["controller"].ToString().Equals(controller, StringComparison.OrdinalIgnoreCase);
+    };
+    
+    // Special case for dashboard which checks both controller and action
+    Func<bool> isDashboardActive = () => {
+        return ViewContext.RouteData.Values["controller"].ToString().Equals("Admin", StringComparison.OrdinalIgnoreCase) && 
+               ViewContext.RouteData.Values["action"].ToString().Equals("Index", StringComparison.OrdinalIgnoreCase);
+    };
+    
+    // Helper for content submenu items
+    Func<bool> isContentActive = () => {
+        var controller = ViewContext.RouteData.Values["controller"].ToString();
+        return controller.Equals("Sliders", StringComparison.OrdinalIgnoreCase) || 
+               controller.Equals("Testimonial", StringComparison.OrdinalIgnoreCase) || 
+               controller.Equals("Video", StringComparison.OrdinalIgnoreCase);
+    };
+}
+
+<!-- TailAdmin Sidebar applied -->
+<aside class="w-64 md:w-72 bg-white border-r border-gray-100 min-h-screen flex-shrink-0 hidden md:block transition-all duration-300" id="sidebar">
+    <!-- Brand logo and name -->
+    <div class="px-4 py-6">
+        <a href="/Admin" class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
+                <i class="fas fa-gift text-lg"></i>
+            </div>
+            <span class="text-lg font-semibold text-gray-900">Gift Forever Admin</span>
+        </a>
+    </div>
+
+    <div class="px-4 py-2">
+        <!-- Main Navigation -->
+        <div class="mb-6">
+            <h3 class="mb-2 ml-3 text-xs font-medium uppercase tracking-wider text-gray-400">Menu</h3>
+            
+            <ul class="space-y-1.5">
+                <li>
+                    <a href="/Admin" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isDashboardActive() ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                       @(isDashboardActive() ? "aria-current=\"page\"" : "")>
+                        @if(isDashboardActive()) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isDashboardActive() ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">Dashboard</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/ProductTypes/adminindex" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("ProductTypes") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                       @(isActive("ProductTypes") ? "aria-current=\"page\"" : "")>
+                        @if(isActive("ProductTypes")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("ProductTypes") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                            <i class="fas fa-tags"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">Categories</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/Products/adminindex" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("Products") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                       @(isActive("Products") ? "aria-current=\"page\"" : "")>
+                        @if(isActive("Products")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("Products") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                            <i class="fas fa-box-open"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">Products</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/Orders" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("Orders") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                       @(isActive("Orders") ? "aria-current=\"page\"" : "")>
+                        @if(isActive("Orders")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("Orders") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                            <i class="fas fa-shopping-cart"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">Orders</span>
+                        @if (recentOrders.Count > 0)
+                        {
+                            <span class="ml-auto inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-primary px-1.5 text-xs font-medium text-white">
+                                @recentOrders.Count
+                            </span>
+                        }
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/Users/index" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("Users") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                       @(isActive("Users") ? "aria-current=\"page\"" : "")>
+                        @if(isActive("Users")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("Users") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">Users</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Other Links -->
+        <div>
+            <h3 class="mb-2 ml-3 text-xs font-medium uppercase tracking-wider text-gray-400">Others</h3>
+            
+            <ul class="space-y-1.5">
+                <li>
+                    <div class="relative">
+                        <a href="#" 
+                           class="relative group flex items-center justify-between gap-2.5 rounded-md px-3 py-2 transition-colors @(isContentActive() ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                           aria-expanded="false"
+                           aria-controls="contentSubmenu"
+                           onclick="toggleContentMenu(event)"
+                           @(isContentActive() ? "aria-current=\"page\"" : "")>
+                            @if(isContentActive()) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 flex items-center justify-center rounded-md @(isContentActive() ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                                    <i class="fas fa-images"></i>
+                                </span>
+                                <span class="flex-1 text-sm font-medium">Content Management</span>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </a>
+                        <div id="contentSubmenu" class="max-h-0 overflow-hidden transition-all duration-300" aria-hidden="true">
+                            <ul class="mt-1 pl-6 space-y-1.5">
+                                <li>
+                                    <a href="/Sliders/index" 
+                                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("Sliders") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                                       @(isActive("Sliders") ? "aria-current=\"page\"" : "")>
+                                        @if(isActive("Sliders")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("Sliders") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </span>
+                                        <span class="flex-1 text-sm font-medium">Sliders</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Testimonial/index" 
+                                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("Testimonial") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                                       @(isActive("Testimonial") ? "aria-current=\"page\"" : "")>
+                                        @if(isActive("Testimonial")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("Testimonial") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                                            <i class="fas fa-quote-left"></i>
+                                        </span>
+                                        <span class="flex-1 text-sm font-medium">Testimonials</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Video/index" 
+                                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors @(isActive("Video") ? "bg-primary/10 text-primary shadow-sm" : "text-gray-700 hover:bg-gray-50")"
+                                       @(isActive("Video") ? "aria-current=\"page\"" : "")>
+                                        @if(isActive("Video")) { <span class="absolute left-0 top-0 h-full w-1 rounded-r-md bg-primary" aria-hidden="true"></span> }
+                                        <span class="w-10 h-10 flex items-center justify-center rounded-md @(isActive("Video") ? "bg-primary/20 text-primary" : "bg-gray-100 group-hover:bg-gray-100")">
+                                            <i class="fas fa-video"></i>
+                                        </span>
+                                        <span class="flex-1 text-sm font-medium">Videos</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                
+                <li>
+                    <a href="/Home" target="_blank" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-gray-700 hover:bg-gray-50">
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md bg-gray-100 group-hover:bg-gray-100">
+                            <i class="fas fa-external-link-alt"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">View Site</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="/home" 
+                       onclick="logoff()" 
+                       class="relative group flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-gray-700 hover:bg-gray-50">
+                        <span class="w-10 h-10 flex items-center justify-center rounded-md bg-gray-100 group-hover:bg-gray-100">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                        <span class="flex-1 text-sm font-medium">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Promo Box -->
+    <div class="mx-4 mb-4 mt-20">
+        <div class="rounded-md bg-gray-50 p-4">
+            <h4 class="mb-2 text-sm font-semibold text-primary">Gift Forever Admin</h4>
+            <p class="mb-4 text-xs text-gray-600">
+                Manage your online store with ease. Add products, track orders, and grow your business.
+            </p>
+            <a href="https://docs.example.com" target="_blank" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-medium text-white hover:bg-primary-600 transition-colors">
+                <span>Documentation</span>
+                <i class="fas fa-arrow-right ml-1.5"></i>
+            </a>
+        </div>
+    </div>
+</aside>
+
+<script>
+    function toggleContentMenu(e) {
+        e.preventDefault();
+        const submenu = document.getElementById('contentSubmenu');
+        const link = e.currentTarget;
+        const isExpanded = link.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle submenu visibility and height
+        if (isExpanded) {
+            submenu.style.maxHeight = '0';
+        } else {
+            submenu.style.maxHeight = submenu.scrollHeight + 'px';
+        }
+        
+        // Update ARIA attributes
+        link.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        submenu.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+    }
+    
+    // Initialize the submenu height if it should be open
+    document.addEventListener('DOMContentLoaded', function() {
+        const controllers = ['Sliders', 'Testimonial', 'Video'];
+        const currentController = '@ViewContext.RouteData.Values["controller"]';
+        
+        if (controllers.includes(currentController)) {
+            const submenu = document.getElementById('contentSubmenu');
+            const link = submenu.previousElementSibling;
+            
+            submenu.style.maxHeight = submenu.scrollHeight + 'px';
+            link.setAttribute('aria-expanded', 'true');
+            submenu.setAttribute('aria-hidden', 'false');
+        }
+    });
+</script>

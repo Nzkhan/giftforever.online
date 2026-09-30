@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Refund & Returns Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .refund-main {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(76,76,255,0.08);
+        padding: 2.5rem 2rem;
+        margin: 2rem auto;
+        max-width: 1100px;
+    }
+    .refund-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-align: left;
+    }
+    .refund-subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        letter-spacing: 0.5px;
+    }
+    .refund-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 0 2.5rem;
+        align-items: flex-start;
+    }
+    .refund-label {
+        font-weight: 700;
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 2.2rem;
+        text-align: left;
+    }
+    .refund-detail {
+        color: #444;
+        font-size: 1.05rem;
+        margin-bottom: 2.2rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+    .refund-detail ul {
+        margin-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    @@media (max-width: 900px) {
+        .refund-grid {
+            grid-template-columns: 1fr;
+        }
+        .refund-label, .refund-detail {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Refund & Returns Policy</strong></div>
+        </div>
+    </div>
+</div>
+
+<section class="refund-main">
+    <div class="refund-title">Refund & Returns Policy</div>
+    <div class="refund-subtitle">Your rights under UK consumer law and how we handle returns, refunds, and cancellations</div>
+    <div class="refund-grid">
+        <div class="refund-label">Your Right to Cancel</div>
+        <div class="refund-detail">
+            <ul>
+                <li>Under the Consumer Contracts Regulations 2013, you have the legal right to cancel your online order within 14 days of receiving the goods.</li>
+                <li>To exercise this right, you must notify us in writing (email to customercare@giftforever.online) within the 14-day period.</li>
+                <li>You then have another 14 days to return the item(s) to us.</li>
+            </ul>
+        </div>
+        <div class="refund-label">Non-Returnable Items</div>
+        <div class="refund-detail">
+            The following items cannot be cancelled, returned, or refunded (unless faulty):
+            <ul>
+                <li>Personalised or custom-made products</li>
+                <li>Sealed items (cosmetics, toiletries) once opened</li>
+            </ul>
+        </div>
+        <div class="refund-label">Returning Items</div>
+        <div class="refund-detail">
+            <ul>
+                <li>Returned items must be unused, in original packaging, and in resaleable condition.</li>
+                <li>You are responsible for return shipping costs (unless the item is faulty or incorrect).</li>
+                <li>We recommend using a tracked service as we cannot refund lost returns.</li>
+            </ul>
+        </div>
+        <div class="refund-label">Refunds</div>
+        <div class="refund-detail">
+            <ul>
+                <li>Once we receive and inspect the returned item, we will notify you of approval or rejection.</li>
+                <li>Approved refunds will be issued within 14 days using your original payment method.</li>
+                <li>Shipping costs are non-refundable unless the item was faulty, damaged, or incorrect.</li>
+            </ul>
+        </div>
+        <div class="refund-label">Faulty, Damaged, or Incorrect Items</div>
+        <div class="refund-detail">
+            <ul>
+                <li>If your item is faulty, damaged, or not what you ordered, please contact us within 48 hours of delivery at customercare@giftforever.online with photos.</li>
+                <li>We will arrange a replacement, repair, or full refund in line with your rights under the Consumer Rights Act 2015.</li>
+                <li>In this case, we will also cover the cost of return postage.</li>
+            </ul>
+        </div>
+        <div class="refund-label">Exchanges</div>
+        <div class="refund-detail">
+            <ul>
+                <li>Exchanges are only offered for defective, damaged, or incorrect items.</li>
+                <li>Please contact us within 48 hours of receipt to arrange an exchange.</li>
+            </ul>
+        </div>
+        <div class="refund-label">Contact Us</div>
+        <div class="refund-detail">
+            If you have any questions about our Refund & Returns Policy, please contact us at:<br />
+            Gift Forever Ltd<br />
+            📍 41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX<br />
+            📧 customercare@giftforever.online<br />
+            📞 +44 2039 871 975
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,137 @@
+﻿@model Baganova.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Products/adminindex" style="color:white">Product type</a> <span class="mx-2 mb-0">></span> <span>Delete product</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+                    <p style="font-weight:500;text-align:center;" class="text-black">Are you sure you want to delete this?</p>
+                    <div>
+
+                        <hr />
+                        <dl class="dl-horizontal">
+                            @*<dt class="text-black">
+                                    @Html.DisplayNameFor(model => model.brand.BrandName)
+                                </dt>
+
+                                <dd class="text-black">
+                                    @Html.DisplayFor(model => model.brand.BrandName)
+                                </dd>
+
+                                <dt class="text-black">
+                                    @Html.DisplayNameFor(model => model.producttype.TypeName)
+                                </dt>
+
+                                <dd class="text-black">
+                                    @Html.DisplayFor(model => model.producttype.TypeName)
+                                </dd>*@
+
+                            <dt class="text-black">
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </dt>
+
+                            <dd class="text-black">
+                                @Html.DisplayFor(model => model.ProductName)
+                            </dd>
+
+                            <dt class="text-black">
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </dt>
+
+                            <dd class="text-black">
+                                @Html.DisplayFor(model => model.CreatedDate)
+                            </dd>
+
+                            <dt class="text-black">
+                                @Html.DisplayNameFor(model => model.UpdatedDate)
+                            </dt>
+
+                            <dd class="text-black">
+                                @Html.DisplayFor(model => model.UpdatedDate)
+                            </dd>
+
+                            <dt class="text-black">
+                                @Html.DisplayNameFor(model => model.Photo1)
+                            </dt>
+
+                            <dd class="text-black">
+                                <img loading="lazy" src=".@Html.DisplayFor(model => model.Photo1)" style="height:200px; width:100%;object-fit:contain" />
+
+
+                            </dd>
+
+                            @*<dt class="text-black">
+                                    @Html.DisplayNameFor(model => model.Photo2)
+                                </dt>
+
+                                <dd class="text-black">
+                                    <img loading="lazy" src=".@Html.DisplayFor(model => model.Photo2)" style="height:200px; width:100%;object-fit:contain" />
+
+                                </dd>
+
+                                <dt class="text-black">
+                                    @Html.DisplayNameFor(model => model.Photo3)
+                                </dt>
+
+                                <dd class="text-black">
+                                    <img loading="lazy" src=".@Html.DisplayFor(model => model.Photo3)" style="height:200px; width:100%;object-fit:contain" />
+                                </dd>
+
+                                <dt class="text-black">
+                                    @Html.DisplayNameFor(model => model.Photo4)
+                                </dt>
+
+                                <dd class="text-black">
+                                    <img loading="lazy" src=".@Html.DisplayFor(model => model.Photo4)" style="height:200px; width:100%;object-fit:contain" />
+                                </dd>
+
+                                <dt class="text-black">
+                                    @Html.DisplayNameFor(model => model.Photo5)
+                                </dt>
+
+                                <dd class="text-black">
+                                    <img loading="lazy" src=".@Html.DisplayFor(model => model.Photo5)" style="height:200px; width:100%;object-fit:contain" />
+                                </dd>
+                            *@
+                            <dt class="text-black">
+                                @Html.DisplayNameFor(model => model.ProductDescription)
+                            </dt>
+
+                            <dd class="text-black">
+                                @Html.DisplayFor(model => model.ProductDescription)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="deleteButton mr-3" />
+                                @Html.ActionLink("Back to List", "AdminIndex", null, new { @class = "backtolistbtn" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>

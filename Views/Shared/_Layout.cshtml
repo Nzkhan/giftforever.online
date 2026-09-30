@@ -1,0 +1,231 @@
+﻿@using Baganova.Models;
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        @ViewBag.Title -
+        Gift Forever
+    </title>
+    @{
+        PurestContext db = new PurestContext();
+        var mainCategories = db.ProductTypes.Where(pt => pt.ParentTypeID == null && pt.ShowInNavigation).OrderBy(pt => pt.DisplayOrder).ToList();
+    }
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css">
+    <script src="~/scripts/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Reusable loading overlay -->
+    <div id="loading-overlay" style="display:none;">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="/Login">Sign in</a>
+            </div>
+            @*<div class="offcanvas__top__hover">
+                <span>Usd <i class="arrow_carrot-down"></i></span>
+                <ul>
+                    <li>USD</li>
+                    <li>EUR</li>
+                    <li>USD</li>
+                </ul>
+            </div>*@
+        </div>
+        <div class="offcanvas__nav__option">
+            @*<a href="#" class="search-switch"><img src="~/Images/icon/search.png" alt=""></a>
+            <a href="#"><img src="~/Images/icon/heart.png" alt=""></a>*@
+            <a href="#"><img src="~/Images/icon/cart.png" alt=""> <span>0</span></a>
+            <div class="price">£0.00</div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+            @*<p>Free shipping, 30-day return or refund guarantee.</p>*@
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+                                <a href="/Login">Sign in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+           
+                    @Html.Partial("_NavigationPartial")
+               
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    @RenderBody()
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="~/Images/logo3.jpg" alt=""></a>
+                        </div>
+                        <p>The customer is at the heart of our unique business model.</p>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <a href="#"><img src="~/Images/payment.png" alt=""></a>
+                            @*<a href="#"><img style="height:40px" src="~/Images/diners.svg" alt=""></a>*@
+                        </div>
+                    </div>
+                    <div class="footer__widget">
+                        <h6>Other pages</h6>
+                        <ul>
+                            <li><a href="/Home/About">About Us</a></li>
+                            <li><a href="/Home/Contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-md-1 col-md-4 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Policies</h6>
+                        <ul>
+
+                            <li><a href="/Home/TermsAndConditions">Terms & Conditions</a></li>
+                            <li><a href="/Home/CopyrightNotice">Copyright Notice</a></li>
+                            <li><a href="/Home/RefundAndReturnsPolicy">Refund & Returns Policy</a></li>
+                            <li><a href="/Home/ShippingAndDeliveryPolicy">Shipping & Delivery Policy</a></li>
+                            <li><a href="/Home/PrivacyPolicy">Privacy Policy</a></li>
+                            <li><a href="/Home/CookiesPolicy">Cookies Policy</a></li>
+                            <li><a href="/Home/FAQs">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col sm-6">
+                    <div class="footer__widget">
+                        <h6>About company</h6>
+                        <p style="color: #b7b7b7"> Company Registration No:16227874</p>
+                        <p style="color: #b7b7b7">
+                            Registered Office Address:
+                            41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX
+                        </p>
+                        <p style="color: #b7b7b7">
+                            Email Conatct :
+                            customercare@giftforever.online
+                        </p>
+                        <p style="color: #b7b7b7">
+                            Phone Contact : +44 2039 871 975
+                        </p>
+                        <p style="color: #b7b7b7">
+                            Direct Link To Company House : <a href="https://find-and-update.company-information.service.gov.uk/company/16227874">Visit Details</a>
+                        </p>
+                    </div>
+                    
+
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>NewLetter</h6>
+                        <div class="footer__newslatter">
+                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                            <form action="#">
+                                <input type="text" placeholder="Your email">
+                                <button type="submit"><span class="icon_mail_alt"></span></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="footer__widget">
+                        <h6>Social media</h6>
+                        <div class="footer__social">
+                            <a href="https://www.facebook.com" target="_blank" style="font-size: xx-large; padding-left: 7px; padding-right: 5px; "><i class="fa fa-facebook" style="color: aliceblue;"></i></a>
+                            <a href="https://www.twitter.com" target="_blank" style="font-size: xx-large; padding-left: 7px; padding-right: 5px; "><i class="fa fa-twitter" style="color: aliceblue;"></i></a>
+                            <a href="https://www.pinterest.com" target="_blank" style="font-size: xx-large; padding-left: 7px; padding-right: 5px; "><i class="fa fa-pinterest" style="color: aliceblue;"></i></a>
+                            <a href="https://www.instagram.com" target="_blank" style="font-size: xx-large; padding-left: 7px; padding-right: 5px; "><i class="fa fa-instagram" style="color: aliceblue;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <p>
+                            @*Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>*@
+                            @*All rights reserved*@
+                            Copyright © GiftForever Ltd. All rights reserved. :
+                            All website content is protected under the UK Copyright, Designs and Patents Act 1988.
+                            No content may be copied, reproduced, or used without prior written permission.
+                            Unauthorised use may lead to civil and/or criminal legal action.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+    <!-- Js Plugins -->
+    
+    <script src="~/scripts/js/bootstrap.min.js"></script>
+    <script src="~/scripts/js/jquery.nice-select.min.js"></script>
+    <script src="~/scripts/js/jquery.nicescroll.min.js"></script>
+    <script src="~/scripts/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/scripts/js/jquery.countdown.min.js"></script>
+    <script src="~/scripts/js/jquery.slicknav.js"></script>
+    <script src="~/scripts/js/mixitup.min.js"></script>
+    <script src="~/scripts/js/owl.carousel.min.js"></script>
+    <script src="~/scripts/js/main.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

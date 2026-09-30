@@ -1,0 +1,499 @@
+﻿@model Baganova.Models.Product
+@{
+    ViewBag.Title = "Details";
+    var added = TempData["added"];
+    int session = Convert.ToInt32(Session["userid"]);
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+}
+<style>
+    .show-mob {
+        display: none;
+    }
+
+    @@media (max-width: 767px) {
+        .mob {
+            max-width: 100%;
+        }
+
+        .show-mob {
+            display: block;
+        }
+    }
+
+    a:hover {
+        color: #fff;
+    }
+</style>
+
+@section Scripts {
+<script>
+    function changephoto(photo) {
+        var images = photo.src;
+        $("#MainWindow").fadeTo(300, 0.20, function () {
+            $("#MainWindow").attr("src", images).fadeTo(200, 1);
+        }).fadeTo(500, 1);
+    }
+
+    function addtocart(prodid) {
+        $.ajax({
+            type: "POST",
+            url: '/carts/addtocart?prodid=' + prodid,
+            data: param = "",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+            location.reload();
+        }
+
+        function errorFunc() {
+        }
+    }
+
+    $(document).ready(function () {
+        if ('@added' != '') {
+            $.notify("Product added to cart", { color: "#fff", background: "#20D67B" });
+        }
+        if(@session == 0)
+        {
+            $("#reviewdiv *").attr("disabled", "disabled").off('click');
+        }
+    });
+
+    function submitreview()
+    {
+        var arr = {'prodid':labelText = $("#prodid").text(), 'Heading':$('#Heading').val(),'Rating':userrating,'ReviewDesc':$('#reviewdesc').val()};
+        $.ajax({
+            type: "POST",
+            url: '/Reviews/create',
+            data: JSON.stringify(arr),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+
+        function successFunc(data, status) {
+            clearcontrols();
+            $.notify("Review Submitted!", { color: "#fff", background: "#20D67B" });
+        }
+
+        function errorFunc() {
+        }
+    }
+
+    function clearcontrols()
+    {
+        $('#Heading').val('');
+        $('#reviewdesc').val('');
+        $('.starts').prop('checked', false);
+        $(".rating").trigger("reset");
+    }
+</script>
+}
+<!-- Shop Details Section Begin -->
+<section class="shop-details">
+    <div class="product__details__pic">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__breadcrumb">
+                        <a href="./index.html">Home</a>
+                        <a href="./shop.html">Shop</a>
+                        <span>Product Details</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                        @if (!string.IsNullOrEmpty(Model.Photo1))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
+                                    <div class="product__thumb__pic set-bg" data-setbg="@Html.DisplayFor(model => model.Photo1)">
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Photo2))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
+                                    <div class="product__thumb__pic set-bg" data-setbg="@Html.DisplayFor(model => model.Photo2)">
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Photo3))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
+                                    <div class="product__thumb__pic set-bg" data-setbg="@Html.DisplayFor(model => model.Photo3)">
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Photo4))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
+                                    <div class="product__thumb__pic set-bg" data-setbg="@Html.DisplayFor(model => model.Photo4)">
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Photo5))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-5" role="tab">
+                                    <div class="product__thumb__pic set-bg" data-setbg="@Html.DisplayFor(model => model.Photo5)">
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-9">
+                    <div class="tab-content">
+
+                        @if (!string.IsNullOrEmpty(Model.Photo1))
+                        {
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img src="@Html.DisplayFor(model => model.Photo1)" alt="">
+                                </div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Photo2))
+                        {
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img src="@Html.DisplayFor(model => model.Photo2)" alt="">
+                                </div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Photo3))
+                        {
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img src="@Html.DisplayFor(model => model.Photo3)" alt="">
+                                </div>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Photo4))
+                        {
+                            <div class="tab-pane" id="tabs-4" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img src="@Html.DisplayFor(model => model.Photo4)" alt="">
+                                </div>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Photo5))
+                        {
+                            <div class="tab-pane" id="tabs-5" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img src="@Html.DisplayFor(model => model.Photo5)" alt="">
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product__details__content">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="product__details__text">
+                        <h4>@Html.DisplayFor(model => model.ProductName).ToString()</h4>
+                        <h3>£@Html.DisplayFor(model => model.Price).ToString() </h3>
+                        @*<p>
+                            @Html.DisplayFor(model => model.ProductDescription).ToString()
+                        </p>*@
+                    <div class="product__details__cart__option">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <input type="text" value="1">
+                            </div>
+                        </div>
+
+
+                       
+
+                        @*<a href="#" class="primary-btn">add to cart</a>*@
+                    </div>
+                        <div class="product__details__btns__option">
+                          @*  <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>*@
+                        </div>
+                        <div class="product__details__last__option">
+                            <h5><span>Guaranteed Safe Checkout</span></h5>
+                            <img src="~/images/payment.png" alt="">
+                            <ul>
+                                <li><span>SKU:</span> @Html.DisplayFor(model => model.SKUNo).ToString()</li>
+                                @*<li><span>Categories:</span> @Html.DisplayFor(model => model.ProductName).ToString()</li>*@
+                            </ul>
+                            <ul>
+                                @{
+                                    if (session != 0)
+                                    {
+                                        if (Model.InStock > 0)
+                                        {
+                                            <button onclick="addtocart(@Html.DisplayFor(model => model.ID))" class="primary-btn">Add to cart</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="primary-btn disabled">Add to cart (Out of stock)</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a href="/login" class="primary-btn">Add to cart (Login to continue)</a>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#pd-details" role="tab">
+                                    Product Details
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#pd-materials" role="tab">
+                                    Materials/Ingredients
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#pd-dimensions" role="tab">
+                                    Dimensions
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#pd-origin" role="tab">
+                                    Origin
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="pd-details" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Product Description</h5>
+                                        <p>
+                                            @Html.DisplayFor(model => model.ProductDetails).ToString()
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="pd-materials" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Materials/Ingredients</h5>
+                                        <p>
+                                            @Html.DisplayFor(model => model.ProductDescription).ToString()
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="pd-dimensions" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Product Dimensions</h5>
+                                        <p>
+                                            @Html.DisplayFor(model => model.Usage).ToString()
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="pd-origin" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <div class="product__details__tab__content__item">
+                                        <h5>Products Origin</h5>
+                                        <p>
+                                            @Html.DisplayFor(model => model.Specification).ToString()
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<br />
+<!-- Shop Details Section End -->
+<!-- Related Section Begin -->
+@*<section class="related spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="related-title">Related Product</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                            <span class="label">New</span>
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>Piqué Biker Jacket</h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>$67.24</h5>
+                            <div class="product__color__select">
+                                <label for="pc-1">
+                                    <input type="radio" id="pc-1">
+                                </label>
+                                <label class="active black" for="pc-2">
+                                    <input type="radio" id="pc-2">
+                                </label>
+                                <label class="grey" for="pc-3">
+                                    <input type="radio" id="pc-3">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>Piqué Biker Jacket</h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>$67.24</h5>
+                            <div class="product__color__select">
+                                <label for="pc-4">
+                                    <input type="radio" id="pc-4">
+                                </label>
+                                <label class="active black" for="pc-5">
+                                    <input type="radio" id="pc-5">
+                                </label>
+                                <label class="grey" for="pc-6">
+                                    <input type="radio" id="pc-6">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                    <div class="product__item sale">
+                        <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
+                            <span class="label">Sale</span>
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>Multi-pocket Chest Bag</h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>$43.48</h5>
+                            <div class="product__color__select">
+                                <label for="pc-7">
+                                    <input type="radio" id="pc-7">
+                                </label>
+                                <label class="active black" for="pc-8">
+                                    <input type="radio" id="pc-8">
+                                </label>
+                                <label class="grey" for="pc-9">
+                                    <input type="radio" id="pc-9">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
+                                <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>Diagonal Textured Cap</h6>
+                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            <h5>$60.9</h5>
+                            <div class="product__color__select">
+                                <label for="pc-10">
+                                    <input type="radio" id="pc-10">
+                                </label>
+                                <label class="active black" for="pc-11">
+                                    <input type="radio" id="pc-11">
+                                </label>
+                                <label class="grey" for="pc-12">
+                                    <input type="radio" id="pc-12">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!-- Related Section End -->

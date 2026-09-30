@@ -1,0 +1,70 @@
+﻿@model Baganova.Models.Video
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Testimonial/Index" style="color:white">Videos</a> <span class="mx-2 mb-0">></span> <span>Edit Video</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <p class="text-black" style="font-weight:500;text-align:center;">Edit Video</p>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.VideoId)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VideoLink, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-bold" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.VideoLink, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.VideoLink, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-bold" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UpdatedDate, htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-bold" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UpdatedDate, new { htmlattributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UpdatedDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save"  class="createbtn mr-3" />
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "backtolistbtn" })
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Privacy Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .privacy-main {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(76,76,255,0.08);
+        padding: 2.5rem 2rem;
+        margin: 2rem auto;
+        max-width: 1100px;
+    }
+    .privacy-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-align: left;
+    }
+    .privacy-subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        margin-bottom: 2.5rem;
+        text-align: left;
+        letter-spacing: 0.5px;
+    }
+    .privacy-grid {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 0 2.5rem;
+        align-items: flex-start;
+    }
+    .privacy-label {
+        font-weight: 700;
+        color: #222;
+        font-size: 1.1rem;
+        margin-bottom: 2.2rem;
+        text-align: left;
+    }
+    .privacy-detail {
+        color: #444;
+        font-size: 1.05rem;
+        margin-bottom: 2.2rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+    .privacy-detail ul {
+        margin-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    @@media (max-width: 900px) {
+        .privacy-grid {
+            grid-template-columns: 1fr;
+        }
+        .privacy-label, .privacy-detail {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Privacy Policy</strong></div>
+        </div>
+    </div>
+</div>
+
+<section class="privacy-main">
+    <div class="privacy-title">Privacy Policy</div>
+    <div class="privacy-subtitle">Our personal statement, cookies, third-parties</div>
+    <div class="privacy-grid">
+        <div class="privacy-label">Who We Are</div>
+        <div class="privacy-detail">This website is operated by Gift Forever Ltd, registered in England & Wales under company number 16227874. We are the data controller responsible for your personal data.<br />For any queries regarding this policy, please contact:<br />Gift Forever Ltd<br />📍 41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX<br />📧 customercare@giftforever.online<br />📞 +44 2039 871 975</div>
+        <div class="privacy-label">Information We Collect</div>
+        <div class="privacy-detail">We may collect the following information:<ul><li>Personal details (name, address, email, phone number)</li><li>Payment details (processed securely by third-party providers – we do not store card information)</li><li>Order history and preferences</li><li>Technical data (IP address, browser type, device, cookies)</li></ul></div>
+        <div class="privacy-label">How We Use Your Data</div>
+        <div class="privacy-detail">We use your information to:<ul><li>Process and deliver your orders</li><li>Communicate with you about your purchase</li><li>Improve our website, services, and customer experience</li><li>Send promotional emails or offers (only if you opt-in)</li><li>Comply with legal or regulatory obligations</li></ul></div>
+        <div class="privacy-label">Legal Basis for Processing</div>
+        <div class="privacy-detail">We process your data under the following lawful bases:<ul><li>Contractual necessity – to fulfil your order</li><li>Consent – for marketing communications</li><li>Legal obligation – for tax and accounting purposes</li><li>Legitimate interests – to improve services and prevent fraud</li></ul></div>
+        <div class="privacy-label">Sharing Your Information</div>
+        <div class="privacy-detail">We do not sell your data. We may share your information with:<ul><li>Trusted partners (delivery couriers, payment processors) to complete your order</li><li>IT service providers who help maintain our systems</li><li>Government authorities where legally required</li></ul></div>
+        <div class="privacy-label">Data Retention</div>
+        <div class="privacy-detail"><ul><li>We keep your personal data only as long as necessary for the purposes collected.</li><li>Order records are typically retained for 6 years to comply with UK tax laws.</li></ul></div>
+        <div class="privacy-label">Cookies</div>
+        <div class="privacy-detail"><ul><li>Our website uses cookies to improve functionality and analyse site usage.</li><li>You can control or disable cookies in your browser settings.</li></ul></div>
+        <div class="privacy-label">Your Rights (UK GDPR)</div>
+        <div class="privacy-detail">You have the right to:<ul><li>Access the data we hold about you</li><li>Request correction of inaccurate information</li><li>Request deletion of your data (“right to be forgotten”)</li><li>Restrict or object to data processing</li><li>Request data portability</li><li>Withdraw consent for marketing at any time</li></ul>To exercise your rights, contact us at customercare@giftforever.online.</div>
+        <div class="privacy-label">Data Security</div>
+        <div class="privacy-detail"><ul><li>We use encryption, secure servers, and trusted payment providers to protect your information.</li><li>While we take reasonable measures, no system is 100% secure, and we cannot guarantee absolute protection.</li></ul></div>
+        <div class="privacy-label">Updates to this Policy</div>
+        <div class="privacy-detail">We may update this Privacy Policy from time to time. Any changes will be posted on this page with the updated date.</div>
+        <div class="privacy-label">Contact Us</div>
+        <div class="privacy-detail">If you have any questions or concerns about your personal data, please contact:<br />Gift Forever Ltd<br />📍 41 Sunningdale Road, Crossland Moor, Huddersfield, HD4 5DX<br />📧 customercare@giftforever.online<br />📞 +44 2039 871 975<br /></div>
+    </div>
+</section>
+

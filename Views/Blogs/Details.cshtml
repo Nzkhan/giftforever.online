@@ -1,0 +1,54 @@
+﻿@model Baganova.Models.Blog
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var tag = ViewBag.Tag;
+    var tagfour = ViewBag.TagFour;
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-12 justify-content-center">
+            <p class="mt-2 mb-2 text-center" style="font-size: 18px;">Published On:  @Html.DisplayFor(model => model.CreatedDate)</p>
+            <h2 class="text-center " style="font-weight: 700;">   @Html.DisplayFor(model => model.Title)</h2>
+            <div class="d-flex justify-content-center">
+                <p>
+                    @{
+                        foreach (var t in tagfour)
+                        {
+                            <span class="badge badge-light px-2 py-2 mx-1 rounded" style="font-size: 18px;">@t.TagName</span>
+                        }
+                    }
+
+                </p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <img loading="lazy" src=".@Html.DisplayFor(model => model.Photo)" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="d-flex justify-content-center">
+                <p class="mt-4 mb-3 mx-lg-5 mx-2">
+                    @*@Html.DisplayFor(model => model.)*@
+
+                    @if (Model.Description != null)
+                    {
+                        @Html.Raw(Model.Description.Replace(Environment.NewLine, "<br />"))
+                    }
+                </p>
+            </div>
+            <div class="px-lg-4 mt-3 mb-5">
+                <p class="mx-3" style="font-size: 20px; font-weight: 600;">Related Tags: </p>
+                <p class="mx-1">
+                    @{
+                        foreach (var t in tag)
+                        {
+                            <span class="badge badge-light px-2 py-2 mx-1 rounded" style="font-size: 18px;">@t.TagName</span>
+                        }
+                    }
+
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

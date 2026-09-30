@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Baganova.Models.Slider>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <span>Sliders photos</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+                    <p style="font-weight:500;text-align:center" class="text-black">Slider Photos</p>
+                    <div style="text-align:right; margin-bottom:20px;">
+                        <a href="/Sliders/Create" class="btn btn-success">Add Slider</a>
+                    </div>
+                    @foreach (var item in Model)
+                    {
+                        <div style="margin-bottom:40px;">
+                            <img loading="lazy" style="max-width:100%" src="../@item.Photo" />
+                            <h3>@item.Title</h3>
+                            <h5>@item.SubTitle</h5>
+                            <br />
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>

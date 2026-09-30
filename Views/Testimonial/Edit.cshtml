@@ -1,0 +1,73 @@
+﻿@model Baganova.Models.Testimonial
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Testimonial/Index" style="color:white">Reviews</a> <span class="mx-2 mb-0">></span> <span>Edit Reviews</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="p-3 p-lg-5  shadow" style="border-radius:12px">
+
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <p class="text-black" style="font-weight:500;text-align:center;">Edit Reviews</p>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ClientId)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ClientName, htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-bold" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ClientName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ClientName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UpdatedDate, htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-bold" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.UpdatedDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                                @Html.ValidationMessageFor(model => model.UpdatedDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ClientDescrpt, htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-bold" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.ClientDescrpt, new { @class = "form-control", @cols = "50", @rows = "5" })
+                                @Html.ValidationMessageFor(model => model.ClientDescrpt, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Save"  class="createbtn mr-3" />
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "backtolistbtn" })
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+                        </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>

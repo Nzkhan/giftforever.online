@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "ProductsPhotos";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    var prod = ViewBag.products;
+}
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/admin">Admin</a> <span class="mx-2 mb-0">/</span> <strong class="text-black ">Product Photos</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Products/adminindex" style="color:white">Product type</a> <span class="mx-2 mb-0">></span> <span>Product photo</span></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="site-section" >
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+                    <p style="font-weight:500;text-align:center" class="text-black">Product Photos : @prod.ProductName</p>
+                 
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width:200px" src="../@prod.Photo1" />
+                        </div>
+                        <div class="col-3">
+                            @Html.ActionLink("Change Photo 1", "changephotos", new { id = prod.ID, photo = 1 }, new { @class = "ChangePhotoButton" })
+
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 1 }, new { @class = "ChangePhotoButton" })*@
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo2" />
+                        </div>
+                        <div class="col-3">
+                            @Html.ActionLink("Change Photo 2", "changephotos", new { id = prod.ID, photo = 2 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 2 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo3" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 3", "changephotos", new { id = prod.ID, photo = 3 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 3 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo4" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 4", "changephotos", new { id = prod.ID, photo = 4 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 4 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo5" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 5", "changephotos", new { id = prod.ID, photo = 5 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo6" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 6", "changephotos", new { id = prod.ID, photo = 6 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo7" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 7", "changephotos", new { id = prod.ID, photo = 7 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo8" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 8", "changephotos", new { id = prod.ID, photo = 8 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo9" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 9", "changephotos", new { id = prod.ID, photo = 9 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-9">
+                            <img loading="lazy" style="width: 200px" src="../@prod.Photo10" />
+                        </div>
+                        <div class="col-3">
+
+                            @Html.ActionLink("Change Photo 10", "changephotos", new { id = prod.ID, photo = 10 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-8">
+                            <img loading="lazy" style="width: 200px" src="../@prod.BeneficialFor" />
+                        </div>
+                        <div class="col-4">
+
+                            @Html.ActionLink("Change Photo BeneficialFor", "changephotos", new { id = prod.ID, photo = 11 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-7">
+                            <img loading="lazy" style="width: 200px" src="../@prod.ProductInformation" />
+                        </div>
+                        <div class="col-5">
+
+                            @Html.ActionLink("Change Photo ProductInformation", "changephotos", new { id = prod.ID, photo = 12 }, new { @class = "ChangePhotoButton" })
+                            @*@Html.ActionLink("Rotate Right", "ImageRotation", new { way = "right", pid = prod.ID, photonum = 5 }, new { @class = "btn btn-black offset-md-10", @style = "padding-top:10px" })*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+
+

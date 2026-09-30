@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "blog";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var blog = ViewBag.blog;
+    var shortblog = ViewBag.Lastestfive;
+    var tag = ViewBag.Tag;
+}
+
+<div class="container bg-light">
+    <div class="row">
+        <!-- blogs -->
+        <div class="col-lg-8 col-12 mx-sm-3 h-100 order-1 order-lg-0 ">
+            <!-- blog row started -->
+            <div class="row">
+                <!-- blog 1 -->
+                @{
+                    foreach (var blg in blog)
+                    {
+                                <div class="col-12 my-3">
+
+                                    <div class="row">
+                                        <div class="col">
+
+                                            <span class="d-flex justify-content-center my-3 "> <img loading="lazy" class="img-fluid blog-image w-xl-100 " src="@blg.Photo"></span>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-black mx-3">@blg.Title</h4>
+                                    <div class="">
+                                        <p class="m-0 lead descrp-height mx-3">
+                                            @blg.Description
+                                        </p>
+                                        <a href="/Blogs/Details/@blg.Id"><button class="btn readmore py-2 px-3 rounded-0 my-3 mx-3 d-block d-md-inline btn-black ">Read More</button></a>
+                                        <span class="mx-md-2 mx-3"><strong>Posted On: @blg.CreatedDate</strong></span>
+                                    </div>
+                                </div>
+            }
+                    
+                }
+
+                <!-- blog row ended -->
+            </div>
+            <!-- blog col 8 ended -->
+        </div>
+
+
+        <!-- tags -->
+        <div class="col-lg-3 mx-2  h-100  mt-3 order-0 order-lg-1 col-sm-10 ">
+            <div class="conatiner">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <h4 class="pb-2" style="border-bottom: 2px solid">
+                            FRESH PERSPECTIVES
+                        </h4>
+                        @{
+                            foreach (var sblg in shortblog)
+                            {
+                                <div class="row m-0">
+                                    <div class="col-3 px-0">
+                                        <div class="text-center" style="border: 1px solid grey; justify-content: center; padding: 2px;width: fit-content;">
+                                            <img loading="lazy" src="@sblg.Photo" alt="" style="object-fit: cover; height: 60px; width: 100%;">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="mb-0">@sblg.CreatedDate</p>
+                                        <a href="/Blogs/Details/@sblg.Id" class="text-black" >
+                                            <h6 class="poiter">@sblg.Title</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <h4 class="my-3 font-weight-bold">TAGS</h4>
+            <div>
+
+                <ul class="list-unstyled list-inline list-group-flush list-scroll mx-2 invisible-scrollbar">
+                    @{
+                        foreach (var t in tag)
+                        {
+                            <li class="font-weight-bold list-inline-item d-lg-block ">@t.TagName</li>
+                            <span class="d-none d-lg-block "><hr></span>
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+        <!-- main row ended -->
+    </div>
+
+
+</div>
+
+

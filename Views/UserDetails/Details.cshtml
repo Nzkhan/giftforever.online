@@ -1,0 +1,103 @@
+﻿@model Baganova.Models.UserDetail
+
+@{
+    ViewBag.Title = "Profile";
+    var userdid = Request.QueryString["id"];
+    int session = Convert.ToInt32(Session["userid"]);
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+
+    // helper for initials (safe)
+    string initials = "";
+    if (Model != null && !string.IsNullOrEmpty(Model.FirstName)) { initials += Model.FirstName.Substring(0, 1).ToUpper(); }
+    if (Model != null && !string.IsNullOrEmpty(Model.LastName)) { initials += Model.LastName.Substring(0, 1).ToUpper(); }
+}
+
+<div class="custom-border-bottom py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"> <a href="/home">Home</a> <span class="mx-2 mb-0">&gt;</span> <span>Profile</span></div>
+        </div>
+    </div>
+</div>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="p-4 p-lg-5">
+                    <div class="d-flex align-items-center mb-4">
+                        <div style="flex:0 0 auto;">
+                            <div class="profile-avatar text-center" title="@((Model != null) ? (Model.FirstName + " " + Model.LastName) : "User")" style="width:84px;height:84px;border-radius:50%;background:#f3f2ee;display:flex;align-items:center;justify-content:center;font-weight:700;color:#111;font-size:28px;">
+                                @(!string.IsNullOrEmpty(initials) ? initials : "U")
+                            </div>
+                        </div>
+                        <div class="ml-3" style="flex:1 1 auto;">
+                            <h3 class="mb-0" style="font-weight:700">@Html.DisplayFor(m => m.FirstName) @Html.DisplayFor(m => m.LastName)</h3>
+                            <p class="mb-0 text-muted" style="font-size:14px">@Html.DisplayFor(m => m.user.UserName)</p>
+                        </div>
+
+                        <div style="flex:0 0 auto;">
+                            @Html.ActionLink("Edit profile", "Edit", new { id = Model.ID }, new { @class = "site-btn", style = "padding:8px 14px; font-size:14px; border-radius:6px;" })
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3 d-flex">
+                                <div style="width:135px;font-weight:700;color:#111;">Email</div>
+                                <div class="text-muted">@Html.DisplayFor(m => m.Email)</div>
+                            </div>
+
+                            <div class="mb-3 d-flex">
+                                <div style="width:135px;font-weight:700;color:#111;">Mobile</div>
+                                <div class="text-muted">@Html.DisplayFor(m => m.Mobile)</div>
+                            </div>
+
+                            <div class="mb-3 d-flex">
+                                <div style="width:135px;font-weight:700;color:#111;">Username</div>
+                                <div class="text-muted">@Html.DisplayFor(m => m.user.UserName)</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3 d-flex">
+                                <div style="width:135px;font-weight:700;color:#111;">First name</div>
+                                <div class="text-muted">@Html.DisplayFor(m => m.FirstName)</div>
+                            </div>
+
+                            <div class="mb-3 d-flex">
+                                <div style="width:135px;font-weight:700;color:#111;">Last name</div>
+                                <div class="text-muted">@Html.DisplayFor(m => m.LastName)</div>
+                            </div>
+
+                            <div class="mb-3 d-flex">
+                                <div style="width:135px;font-weight:700;color:#111;">Address</div>
+                                <div class="text-muted">@Html.DisplayFor(m => m.Address)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <input type="button" value="Manage addresses" class="site-btn" onclick="location.href='@Url.Action("Index", "Addresses", new { id = Model.ID })'" style="padding:10px 18px;border-radius:6px;" />
+                        <a href="/Orders" class="site-btn" style="padding:10px 18px;border-radius:6px;">My Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Small, page-scoped tweaks to match the app's sleek, simple aesthetic */
+    .profile-avatar { /* remove shadow for flat look */ }
+    .user-details .text-muted { color: #6b7280; } /* softer text color */
+    @@media (max-width: 576px) {
+        .ml-3 { margin-left: 0 !important; margin-top: 12px; }
+        .d-flex.justify-content-between { flex-direction: column; gap: 10px; }
+    }
+</style>

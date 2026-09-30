@@ -1,0 +1,178 @@
+﻿@model IEnumerable<Baganova.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    int session = Convert.ToInt32(Session["userid"]);
+
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+
+}
+
+<br />
+<br />
+<br />
+
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home">Admin</a> <span class="mx-2 mb-0">/</span> <strong class="text-black ">Product </strong></div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row mb-5 ">
+            <form class="col-md-12" method="post">
+                <div class="site-blocks-table">
+
+                    <p>
+                        @Html.ActionLink("Add New Product", "Create", null, new { @class = "btn btn-black", @style = "padding-top:10px" })
+                    </p>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ProductName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Photo1)
+                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.Photo2)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo3)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo4)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo5)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo6)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo7)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo8)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo9)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Photo10)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BeneficialFor)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductInformation)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.brand.BrandName)
+                                    </th>*@
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.producttype.TypeName)
+                                    </th>*@
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SKUNo)
+                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.InStock)
+                                    </th>*@
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.UpdatedDate)
+                                    </th>*@
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo1)" style="height:80px" />
+                                </td>
+                                @*<td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo2)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo3)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo4)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo5)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo6)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo7)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo8)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo9)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.Photo10)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.BeneficialFor)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        <img loading="lazy" src="@Html.DisplayFor(modelItem => item.ProductInformation)" style="height:80px" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.brand.BrandName)
+                                    </td>*@
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.producttype.TypeName)
+                                    </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SKUNo)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.InStock)
+                                    </td>*@
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDate)
+                                    </td>*@
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                    @Html.ActionLink("Change Photo", "ProductsPhotos", new { prodid = item.ID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

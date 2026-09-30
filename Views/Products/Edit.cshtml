@@ -1,0 +1,247 @@
+﻿@model Baganova.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    var prodtype = ViewBag.TypeID;
+    var pmapping = ViewBag.productMapping;
+}
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+<div class="custom-border-bottom py-3" style="background-color:black;color:white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/Admin" style="color:white">Admin</a> <span class="mx-2 mb-0">></span> <a href="/Products/adminindex" style="color:white">Product</a> <span class="mx-2 mb-0">></span> <span>Edit product </span></div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section" style="margin-top:-30px">
+    <div class="container">
+        <div class="row py-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="p-3 p-lg-5 shadow" style="border-radius:12px">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <p class="text-black" style="font-weight:500;text-align:center;">Edit Product</p>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <lable class="font-weight-normal pl-4 text-black"> Category</lable>
+                                <div class="col-sm-6">
+                                    <select class="selectpicker" onchange="checked(this)" id="ProductMapping" name="ProductMapping" multiple data-live-search="true">
+                                        @{
+                                            if (prodtype != null)
+                                            {
+                                                foreach (var type in prodtype)
+                                                {
+                                                    <option value="@type.Value">@type.Text</option>
+                                                }
+                                            }
+                                        }
+
+                                    </select>
+                                    <input id='ProductMappingValues' name='ProductMappingValues' value="@pmapping" hidden />
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+                        @*<div class="form-group">
+            @Html.LabelFor(model => model.TypeID, "TypeID", htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-normal" })
+            <div class="col-md-10">
+                @Html.DropDownList("TypeID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                        @*<div class="form-group">
+            @Html.LabelFor(model => model.BrandID, "BrandID", htmlAttributes: new { @class = "control-label col-md-2 text-black font-weight-normal" })
+            <div class="col-md-10">
+                @Html.DropDownList("BrandID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = " control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.InStock, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.InStock, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.InStock, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UpdatedDate, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.UpdatedDate, new { htmlattributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UpdatedDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Specification, htmlAttributes: new { @class = " control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Specification, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Specification, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductDetails, htmlAttributes: new { @class = " control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.ProductDetails, new { rows = "8", cols = "10", @class = "form-control" })
+                                @*@Html.EditorFor(model => model.ProductDetails, new { htmlAttributes = new { @class = "form-control", @type = "textarea" } })*@
+                                @Html.ValidationMessageFor(model => model.ProductDetails, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductDescription, htmlAttributes: new { @class = "control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.ProductDescription, new { rows = "8", cols = "10", @class = "form-control" })
+                                @*@Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Usage, htmlAttributes: new { @class = " control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Usage, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Usage, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SKUNo, htmlAttributes: new { @class = " control-label col-md-12 text-black font-weight-normal" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.SKUNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SKUNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Save" class="createbtn mr-3"   />
+                                @Html.ActionLink("Back to List", "AdminIndex", null, new { @class = "backtolistbtn" })
+                            </div>
+                        </div>
+                    </div>
+                    }     
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('select').selectpicker();
+
+    function checked(selectObject) {
+        var selected = [];
+        for (var option of document.getElementById('ProductMapping').options) {
+            if (option.selected) {
+                selected.push(option.value);
+            }
+        }
+
+        select = document.getElementById('ProductMappingValues')
+        select.value = selected
+    }
+
+    function loadTypesData() {
+        debugger
+        var categorydata = document.getElementById("ProductMappingValues");
+        console.log(categorydata.value);
+        var selectedCatList = categorydata.value.split(',');
+        @*var dataselection = @pmapping;
+        console.log(dataselection);*@
+
+        var catel = document.getElementById('ProductMapping')
+
+        for (var option of catel.options) {
+            //console.log(option)
+            console.log(option.value)
+            for (var selectedid of selectedCatList) {
+                if (option.value == selectedid) {
+                    console.log("matched");
+                    option.selected = true;
+                   // option.
+                }
+            }
+            
+        }
+        catel.onchange();
+
+    }
+
+    console.log(@pmapping)
+    
+    window.onload = function () {
+        loadTypesData();
+    };
+
+</script>
+
+

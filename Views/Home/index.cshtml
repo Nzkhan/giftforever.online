@@ -1,0 +1,311 @@
+﻿@using Baganova.Models
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    int session = Convert.ToInt32(Session["userid"]);
+
+    if (session != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+    }
+
+    var db = new PurestContext();
+    var mainCategories = db.ProductTypes.Where(pt => pt.ParentTypeID == null && pt.ShowInNavigation).OrderBy(pt => pt.DisplayOrder).ToList();
+    var sliders = db.Sliders.ToList();
+    var testimonials = db.Testimonials.OrderByDescending(t => t.CreatedDate).ToList();
+    var testimonialCount = testimonials != null ? testimonials.Count : 0;
+
+    // One latest product per main category (by CreatedDate)
+    var categoryIds = mainCategories.Select(c => c.ID).ToList();
+    var prods = (from m in db.ProductProductTypeMappings
+                 where categoryIds.Contains(m.ProductTypeID)
+                 join p in db.Products on m.ProductID equals p.ID
+                 group p by m.ProductTypeID into grp
+                 select grp.OrderByDescending(p => p.CreatedDate).FirstOrDefault())
+                .Distinct()
+                .ToList();
+}
+
+<style>
+    .banner__item__text h2 {
+        color: #ff565d !important;
+        /*text-shadow: 0 2px 8px rgba(0,0,0,0.5);*/
+        font-weight: 700;
+    }
+
+    .banner__item__text a {
+        color: #ffffff !important;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        font-weight: 700;
+    }
+    .banner__item__text a {
+        background: rgba(34,34,34,0.85);
+        padding: 0.5em 1.2em;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 0.5em;
+        font-size: 1.1em;
+        transition: background 0.2s;
+    }
+    .banner__item__text a:hover {
+        background: #764ba2;
+        color: #fff !important;
+    }
+    .hero__text h2 {
+        font-size: 2.2em;
+        margin-bottom: 0.5em;
+        color: #fff !important;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .hero__text h6 {
+        font-size: 1.2em;
+        margin-bottom: 0.5em;
+        color: #fff !important; /* theme-matching gold/orange shade */
+        text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    /* Ensure equal-height product cards in New Arrivals */
+    .product__filter > [class*="col-"] { display: flex; }
+    .product__item { display: flex; flex-direction: column; width: 100%; }
+    .product__item__pic { height: 260px; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; }
+    .product__item__text { flex: 1; display: flex; flex-direction: column; }
+    .product__item__text h6 { min-height: 48px; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .view-btn { margin-top: auto !important; background-color: #764ba2; color: #fff; padding: 5px 10px; border-radius: 4px; text-align: center; text-decoration: none; font-weight: bold; display: block; }
+
+    /* Testimonial styles (replaced with card design) */
+    .testimonial { background: #f9f9fb; padding-top: 30px; padding-bottom: 30px; }
+    .testimonial .section-title h2 { color: #333; }
+    .testimonial__carousel .owl-stage-outer { padding-bottom: 8px; }
+
+    /* Card (testimonial) styles copied from user-provided CSS, adjusted for layout */
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 1);
+      padding: 16px;
+      max-width: 100%;
+      height: 160px; /* reduced height for compact look */
+      box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+      border-radius: 8px;
+    }
+
+    .stars {
+      display: flex;
+      grid-gap: 0.125rem;
+      gap: 0.125rem;
+      color: rgb(238, 203, 8);
+      align-items: center;
+    }
+
+    .star {
+      height: 1rem;
+      width: 1rem;
+      flex: 0 0 auto;
+    }
+
+    .infos {
+      margin-top: 0.4rem;
+      flex: 1 1 auto;
+    }
+
+    .date-time {
+      color: rgba(7, 63, 216, 1);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .description {
+      margin-top: 0.4rem;
+      line-height: 1.4;
+      color: rgba(107, 114, 128, 1);
+      font-size: 0.95rem;
+    }
+
+    .author {
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      line-height: 1.2rem;
+      color: rgba(107, 114, 128, 1);
+      text-align: right;
+      font-weight: 600;
+    }
+
+    @@media (max-width:767px) {
+        .testimonial { padding-top:20px; padding-bottom:20px; }
+        .card { height: auto; padding: 12px; }
+        .description { font-size: 0.92rem; }
+    }
+</style>
+
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="hero__slider owl-carousel">
+        @foreach (var slider in sliders)
+        {
+            if (!string.IsNullOrEmpty(slider.Photo))
+            {
+                <div class="hero__items set-bg" data-setbg="@slider.Photo" style="background-size: contain; background-repeat: no-repeat; background-position: center;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-7 col-md-8">
+                                <div class="hero__text">
+                                    <h6>@slider.SubTitle</h6>
+                                    <h2>@slider.Title</h2>
+                                    @*<a href="#" class="primary-btn">Shop now <span class="arrow_right"></span></a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Banner Section Begin -->
+<section class="banner spad">
+    <div class="container">
+        <div class="row">
+            @{
+                int categoryIndex = 0;
+            }
+            @foreach (var category in mainCategories)
+            {
+                string colClass = categoryIndex%2 == 1 ? "col-lg-7 offset-lg-4" : (categoryIndex%2 == 0 ? "col-lg-7" : "col-lg-7");
+
+
+
+                <div class="@colClass">
+                    <div class="banner__item">
+                        <div class="banner__item__pic">
+                            <img src="@category.HomePhoto" alt="">
+                        </div>
+                        <div class="banner__item__text">
+                            <h2>@category.TypeName</h2>
+                            <a href="/ProductTypes/Index?name=@category.ID">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+                categoryIndex++;
+            }
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="filter__controls">
+                    @*<li class="active" data-filter="*">Best Sellers</li>*@
+                    <li data-filter=".new-arrivals">New Arrivals</li>
+                    @*<li data-filter=".hot-sales">Hot Sales</li>*@
+                </ul>
+            </div>
+        </div>
+        <div class="row product__filter">
+            @{
+                foreach (var prod in prods)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="@(string.IsNullOrWhiteSpace(prod.Photo1) ? Url.Content("~/Images/uploadphoto.jpg") : prod.Photo1)">
+                                <span class="label">New</span>
+                                <ul class="product__hover">
+                                    <li><a href="#"><img src="./../Images/icon/heart.png" alt=""></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6>@prod.ProductName</h6>
+                                <a class="add-cart"  onclick="addtocart(@prod.ID)" data-prodid="@prod.ID">+ Add To Cart</a>
+                                <h5>£@prod.Price</h5>
+                            </div>
+                            <a href="/Products/Details?id=@prod.ID" class="view-btn">View</a>
+                        </div>
+                    </div>
+                }
+            }
+
+
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section Begin -->
+<section class="testimonial spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>What our customers say</h2>
+                    <p>Real feedback from our valued customers</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="testimonial__carousel owl-carousel">
+                    @foreach (var t in testimonials)
+                    {
+                        var text = !String.IsNullOrWhiteSpace(t.ClientDescrpt) ? t.ClientDescrpt : "Great quality and service — our customers love it.";
+                        <div class="card" style="height:185px">
+                            <div class="infos">
+                              @*<p class="date-time">@t.UpdatedDate.ToString("yyyy-MM-dd")</p>*@
+                              @*<p class="date-time">@t.UpdatedDate.ToString("dd-MM-yyyy")</p>*@
+                              <p class="description">@Html.Raw(HttpUtility.HtmlEncode(text).Replace("\n", "<br/>"))</p>
+                            </div>
+
+                          <div class="author"><strong>— @t.ClientName</strong></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Testimonial Section End -->
+
+<script>
+    $(document).ready(function () {
+        $('.hero__slider').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 3000, // Auto-scroll every 3 seconds
+            autoplayHoverPause: true,
+            nav: true,
+            navText: ["<span class='arrow_left'></span>", "<span class='arrow_right'></span>"]
+        });
+
+        var tCount = @testimonialCount;
+        var itemsDesktop = Math.min(3, tCount || 1);
+        var itemsTablet = Math.min(2, tCount || 1);
+        var itemsMobile = Math.min(1, tCount || 1);
+
+        $('.testimonial__carousel').owlCarousel({
+            items: itemsDesktop,
+            loop: tCount > itemsDesktop,
+            margin: 24,
+            autoplay: tCount > 1,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            nav: false,
+            dots: true,
+            responsive: {
+                0: { items: itemsMobile },
+                768: { items: itemsTablet },
+                992: { items: itemsDesktop }
+            }
+        });
+    });
+</script>
+
+

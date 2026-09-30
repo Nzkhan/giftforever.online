@@ -1,0 +1,47 @@
+@using Baganova.Models
+@{
+    var db = new PurestContext();
+    var mainCategories = db.ProductTypes.Where(pt => pt.ParentTypeID == null && pt.ShowInNavigation).OrderBy(pt => pt.DisplayOrder).ToList();
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <div class="header__logo">
+                <a href="/"><img src="~/Images/logo3.jpg" alt=""></a>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <nav class="header__menu mobile-menu">
+                <ul>
+                    <li class="active"><a href="/Home">Home</a></li>
+                    @*<li><a href="./shop.html">Shop</a></li>*@
+                   
+                    <li>
+                        <a href="#">Shop by</a>
+                        <ul class="dropdown">
+                            @foreach (var category in mainCategories)
+                            {
+                                <li><a href="/ProductTypes/Index?name=@category.ID">@category.TypeName</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li><a href="/Home/Contact">Contact Us</a></li>
+                     <li>
+                 </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="header__nav__option">
+                @*<a href="#" class="search-switch"><img src="~/Images/icon/search.png" alt=""></a>
+                <a href="#"><img src="~/Images/icon/heart.png" alt=""></a>*@
+                <a href="/Carts"><img src="~/Images/icon/cart.png" alt=""> <span id="cartcount">0</span></a>
+                <div class="price">£ <span id="cartamount">0.00</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="canvas__open"><i class="fa fa-bars"></i></div>
+</div>
+
+

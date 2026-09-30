@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+    var success = TempData["success"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gift Forever - Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    @*<link rel="icon" type="image/png" href="./../login/images/icons/favicon.ico" />*@
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./../loginpg/css/util.css">
+    <link rel="stylesheet" type="text/css" href="./../loginpg/css/main.css">
+    @Styles.Render("~/Content/notify")
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url(../../loginpg/images/signin2.png);">
+                    <span class="login100-form-title-1">
+                        Sign In
+                    </span>
+                </div>
+
+                <form class="login100-form validate-form" method="post" action="~/login/ValidateUser">
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                        <span class="label-input100">Username</span>
+                        <input class="input100" type="text" name="username" placeholder="Enter username">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="password" placeholder="Enter password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <a href="/Home" class="txt1">
+                                Back to home
+                            </a>
+                        </div>
+
+                        <div>
+                            <a href="/Users/Register" class="txt1">
+                                Register (New User)
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+
+                        @*@Html.ActionLink("Login", "validateuser", new { username = "" ,password = "" }, new { @class = "login100-form-btn" })*@
+                        <button type="submit" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="./../loginpg/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="./../loginpg/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="./../loginpg/vendor/bootstrap/js/popper.js"></script>
+    <script src="./../loginpg/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="./../loginpg/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="./../loginpg/vendor/daterangepicker/moment.min.js"></script>
+    <script src="./../loginpg/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="./../loginpg/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="./../loginpg/js/main.js"></script>
+
+    @Scripts.Render("~/bundles/notify")
+    <script>
+        //alert(@success);
+        if ('@success' != '') {
+            $.notify("Registration sucessfull", { color: "#fff", background: "#20D67B" });
+        }
+    </script>
+</body>
+</html>

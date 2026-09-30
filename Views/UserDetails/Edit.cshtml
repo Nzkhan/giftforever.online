@@ -1,0 +1,99 @@
+﻿@model Baganova.Models.UserDetail
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutLogged.cshtml";
+
+    // safe initials
+    string initials = "";
+    if (Model != null && !string.IsNullOrEmpty(Model.FirstName)) { initials += Model.FirstName.Substring(0, 1).ToUpper(); }
+    if (Model != null && !string.IsNullOrEmpty(Model.LastName)) { initials += Model.LastName.Substring(0, 1).ToUpper(); }
+}
+
+<div class="custom-border-bottom py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="/home" style="color:white">Home</a> <span class="mx-2 mb-0">&gt;</span> <span>Edit Profile</span></div>
+        </div>
+    </div>
+</div>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="p-4 p-lg-5">
+
+                    <div class="d-flex align-items-center mb-4">
+                        <div style="flex:0 0 auto;">
+                            <div class="profile-avatar text-center" title="@((Model != null) ? (Model.FirstName + " " + Model.LastName) : "User")" style="width:84px;height:84px;border-radius:50%;background:#f3f2ee;display:flex;align-items:center;justify-content:center;font-weight:700;color:#111;font-size:28px;">
+                                @(!string.IsNullOrEmpty(initials) ? initials : "U")
+                            </div>
+                        </div>
+                        <div class="ml-3" style="flex:1 1 auto;">
+                            <h3 class="mb-0" style="font-weight:700">Edit Profile</h3>
+                            <p class="mb-0 text-muted" style="font-size:14px">Update your account information</p>
+                        </div>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <input type="submit" value="Save" class="site-btn" style="padding:8px 16px;border-radius:6px;" />
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .profile-avatar { /* flat look: no shadow */ }
+    .bg-white p, .bg-white .text-muted { color: #6b7280; }
+    @@media (max-width: 576px) {
+        .ml-3 { margin-left: 0 !important; margin-top: 12px; }
+    }
+</style>

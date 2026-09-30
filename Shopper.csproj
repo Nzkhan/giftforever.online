@@ -1,0 +1,975 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7A83BB5-D428-4E9C-B354-138C8A3234BE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shopper</RootNamespace>
+    <AssemblyName>Shopper</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Stripe.net, Version=44.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stripe.net.44.4.0\lib\net461\Stripe.net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Adminassets\css\material-dashboard-rtl.css" />
+    <Content Include="Adminassets\css\material-dashboard.css" />
+    <Content Include="Adminassets\css\material-dashboard.min.css" />
+    <Content Include="Adminassets\demo\demo.css" />
+    <Content Include="Adminassets\demo\demo.js" />
+    <Content Include="Adminassets\img\angular.png" />
+    <Content Include="Adminassets\img\apple-icon.png" />
+    <Content Include="Adminassets\img\cover.jpg" />
+    <Content Include="Adminassets\img\ex1.png" />
+    <Content Include="Adminassets\img\ex2.png" />
+    <Content Include="Adminassets\img\ex3.png" />
+    <Content Include="Adminassets\img\faces\avatar.jpg" />
+    <Content Include="Adminassets\img\faces\card-profile1-square.jpg" />
+    <Content Include="Adminassets\img\faces\card-profile2-square.jpg" />
+    <Content Include="Adminassets\img\faces\marc.jpg" />
+    <Content Include="Adminassets\img\favicon.png" />
+    <Content Include="Adminassets\img\html.png" />
+    <Content Include="Adminassets\img\imac1.png" />
+    <Content Include="Adminassets\img\ipad.png" />
+    <Content Include="Adminassets\img\iPad2.png" />
+    <Content Include="Adminassets\img\iphonex.png" />
+    <Content Include="Adminassets\img\Macbook.png" />
+    <Content Include="Adminassets\img\mask.png" />
+    <Content Include="Adminassets\img\new_logo.png" />
+    <Content Include="Adminassets\img\notification.png" />
+    <Content Include="Adminassets\img\react.png" />
+    <Content Include="Adminassets\img\sidebar-1.jpg" />
+    <Content Include="Adminassets\img\sidebar-2.jpg" />
+    <Content Include="Adminassets\img\sidebar-3.jpg" />
+    <Content Include="Adminassets\img\sidebar-4.jpg" />
+    <Content Include="Adminassets\img\table.png" />
+    <Content Include="Adminassets\img\vue.png" />
+    <Content Include="Adminassets\js\core\bootstrap-material-design.min.js" />
+    <Content Include="Adminassets\js\core\jquery.min.js" />
+    <Content Include="Adminassets\js\core\popper.min.js" />
+    <Content Include="Adminassets\js\material-dashboard.js" />
+    <Content Include="Adminassets\js\material-dashboard.min.js" />
+    <Content Include="Adminassets\js\plugins\arrive.min.js" />
+    <Content Include="Adminassets\js\plugins\bootstrap-datetimepicker.min.js" />
+    <Content Include="Adminassets\js\plugins\bootstrap-notify.js" />
+    <Content Include="Adminassets\js\plugins\bootstrap-selectpicker.js" />
+    <Content Include="Adminassets\js\plugins\bootstrap-tagsinput.js" />
+    <Content Include="Adminassets\js\plugins\chartist.min.js" />
+    <Content Include="Adminassets\js\plugins\fullcalendar.min.js" />
+    <Content Include="Adminassets\js\plugins\jasny-bootstrap.min.js" />
+    <Content Include="Adminassets\js\plugins\jquery-jvectormap.js" />
+    <Content Include="Adminassets\js\plugins\jquery.bootstrap-wizard.js" />
+    <Content Include="Adminassets\js\plugins\jquery.dataTables.min.js" />
+    <Content Include="Adminassets\js\plugins\jquery.tagsinput.js" />
+    <Content Include="Adminassets\js\plugins\jquery.validate.min.js" />
+    <Content Include="Adminassets\js\plugins\moment.min.js" />
+    <Content Include="Adminassets\js\plugins\nouislider.min.js" />
+    <Content Include="Adminassets\js\plugins\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Adminassets\js\plugins\sweetalert2.js" />
+    <Content Include="App_Data\AncientWisdomMigration.sql" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\elegant-icons.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\magnific-popup.css" />
+    <Content Include="Content\css\nice-select.css" />
+    <Content Include="Content\css\owl.carousel.min.css" />
+    <Content Include="Content\css\slicknav.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="fonts\ElegantIcons.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\about\about-us.jpg" />
+    <Content Include="Images\about\team-1.jpg" />
+    <Content Include="Images\about\team-2.jpg" />
+    <Content Include="Images\about\team-3.jpg" />
+    <Content Include="Images\about\team-4.jpg" />
+    <Content Include="Images\about\testimonial-author.jpg" />
+    <Content Include="Images\about\testimonial-pic.jpg" />
+    <Content Include="Images\banner\banner-1.jpg" />
+    <Content Include="Images\banner\banner-2.jpg" />
+    <Content Include="Images\banner\banner-3.jpg" />
+    <Content Include="Images\blog\blog-1.jpg" />
+    <Content Include="Images\blog\blog-2.jpg" />
+    <Content Include="Images\blog\blog-3.jpg" />
+    <Content Include="Images\blog\blog-4.jpg" />
+    <Content Include="Images\blog\blog-5.jpg" />
+    <Content Include="Images\blog\blog-6.jpg" />
+    <Content Include="Images\blog\blog-7.jpg" />
+    <Content Include="Images\blog\blog-8.jpg" />
+    <Content Include="Images\blog\blog-9.jpg" />
+    <Content Include="Images\blog\details\blog-author.jpg" />
+    <Content Include="Images\blog\details\blog-details.jpg" />
+    <Content Include="Images\breadcrumb-bg.jpg" />
+    <Content Include="Images\clients\client-1.png" />
+    <Content Include="Images\clients\client-2.png" />
+    <Content Include="Images\clients\client-3.png" />
+    <Content Include="Images\clients\client-4.png" />
+    <Content Include="Images\clients\client-5.png" />
+    <Content Include="Images\clients\client-6.png" />
+    <Content Include="Images\clients\client-7.png" />
+    <Content Include="Images\clients\client-8.png" />
+    <Content Include="Images\footer-logo.png" />
+    <Content Include="Images\hero\hero-1.jpg" />
+    <Content Include="Images\hero\hero-2.jpg" />
+    <Content Include="Images\icon\calendar.png" />
+    <Content Include="Images\icon\cart.png" />
+    <Content Include="Images\icon\compare.png" />
+    <Content Include="Images\icon\heart.png" />
+    <Content Include="Images\icon\search.png" />
+    <Content Include="Images\instagram\instagram-1.jpg" />
+    <Content Include="Images\instagram\instagram-2.jpg" />
+    <Content Include="Images\instagram\instagram-3.jpg" />
+    <Content Include="Images\instagram\instagram-4.jpg" />
+    <Content Include="Images\instagram\instagram-5.jpg" />
+    <Content Include="Images\instagram\instagram-6.jpg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\payment.png" />
+    <Content Include="Images\product-sale.png" />
+    <Content Include="Images\product\product-1.jpg" />
+    <Content Include="Images\product\product-10.jpg" />
+    <Content Include="Images\product\product-11.jpg" />
+    <Content Include="Images\product\product-12.jpg" />
+    <Content Include="Images\product\product-13.jpg" />
+    <Content Include="Images\product\product-14.jpg" />
+    <Content Include="Images\product\product-2.jpg" />
+    <Content Include="Images\product\product-3.jpg" />
+    <Content Include="Images\product\product-4.jpg" />
+    <Content Include="Images\product\product-5.jpg" />
+    <Content Include="Images\product\product-6.jpg" />
+    <Content Include="Images\product\product-7.jpg" />
+    <Content Include="Images\product\product-8.jpg" />
+    <Content Include="Images\product\product-9.jpg" />
+    <Content Include="Images\shop-details\details-payment.png" />
+    <Content Include="Images\shop-details\product-big-2.png" />
+    <Content Include="Images\shop-details\product-big-3.png" />
+    <Content Include="Images\shop-details\product-big-4.png" />
+    <Content Include="Images\shop-details\product-big.png" />
+    <Content Include="Images\shop-details\thumb-1.png" />
+    <Content Include="Images\shop-details\thumb-2.png" />
+    <Content Include="Images\shop-details\thumb-3.png" />
+    <Content Include="Images\shop-details\thumb-4.png" />
+    <Content Include="Images\shopping-cart\cart-1.jpg" />
+    <Content Include="Images\shopping-cart\cart-2.jpg" />
+    <Content Include="Images\shopping-cart\cart-3.jpg" />
+    <Content Include="Images\shopping-cart\cart-4.jpg" />
+    <Content Include="loginpg\images\baglogin.jpg" />
+    <Content Include="loginpg\images\bagslogin.png" />
+    <Content Include="scripts\js\bootstrap.min.js" />
+    <Content Include="scripts\js\jquery-3.3.1.min.js" />
+    <Content Include="scripts\js\jquery.countdown.min.js" />
+    <Content Include="scripts\js\jquery.magnific-popup.min.js" />
+    <Content Include="scripts\js\jquery.nice-select.min.js" />
+    <Content Include="scripts\js\jquery.nicescroll.min.js" />
+    <Content Include="scripts\js\jquery.slicknav.js" />
+    <Content Include="scripts\js\main.js" />
+    <Content Include="scripts\js\mixitup.min.js" />
+    <Content Include="scripts\js\owl.carousel.min.js" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_index.html" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
+    <Content Include="Views\Carts\Create.cshtml" />
+    <Content Include="Views\Carts\Delete.cshtml" />
+    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\Edit.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ProductTypes\Create.cshtml" />
+    <Content Include="Views\ProductTypes\Delete.cshtml" />
+    <Content Include="Views\ProductTypes\Details.cshtml" />
+    <Content Include="Views\ProductTypes\Edit.cshtml" />
+    <Content Include="Views\ProductTypes\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\UserDetails\Create.cshtml" />
+    <Content Include="Views\UserDetails\Delete.cshtml" />
+    <Content Include="Views\UserDetails\Details.cshtml" />
+    <Content Include="Views\UserDetails\Edit.cshtml" />
+    <Content Include="Views\UserDetails\Index.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\OrderDetails\Create.cshtml" />
+    <Content Include="Views\OrderDetails\Delete.cshtml" />
+    <Content Include="Views\OrderDetails\Details.cshtml" />
+    <Content Include="Views\OrderDetails\Edit.cshtml" />
+    <Content Include="Views\OrderDetails\Index.cshtml" />
+    <Content Include="Views\Sliders\Create.cshtml" />
+    <Content Include="Views\Sliders\Delete.cshtml" />
+    <Content Include="Views\Sliders\Details.cshtml" />
+    <Content Include="Views\Sliders\Edit.cshtml" />
+    <Content Include="Views\Sliders\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\ProductTypes\AdminIndex.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Products\AdminIndex.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogged.cshtml" />
+    <Content Include="Views\admin\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Adminassets\css\material-dashboard.css.map" />
+    <Content Include="Adminassets\js\material-dashboard.js.map" />
+    <Content Include="Adminassets\scss\material-dashboard.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\bootstrap-grid.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\bootstrap-reboot.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\bootstrap.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_alert.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_background-variant.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_badge.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_border-radius.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_box-shadow.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_breakpoints.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_buttons.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_caret.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_clearfix.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_float.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_gradients.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_grid-framework.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_grid.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_hover.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_image.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_list-group.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_lists.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_nav-divider.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_navbar-align.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_pagination.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_reset-text.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_resize.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_screen-reader.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_size.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_table-row.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_text-emphasis.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_text-hide.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_text-truncate.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_transition.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\mixins\_visibility.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_align.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_background.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_borders.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_clearfix.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_display.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_embed.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_flex.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_float.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_position.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_screenreaders.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_sizing.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_spacing.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_text.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\utilities\_visibility.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_alert.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_badge.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_breadcrumb.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_button-group.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_buttons.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_card.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_carousel.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_close.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_code.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_custom-forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_dropdown.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_functions.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_grid.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_images.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_input-group.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_jumbotron.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_list-group.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_media.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_mixins.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_modal.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_nav.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_navbar.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_pagination.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_popover.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_print.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_progress.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_reboot.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_root.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_tables.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_tooltip.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_transitions.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_type.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_utilities.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\bootstrap\scss\_variables.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\cards\_card-plain.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\cards\_card-profile.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\cards\_card-stats.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_alert.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_animations.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_breakpoints.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_buttons.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_chartist.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_colored-shadows.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_drawer.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_hover.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_layout.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_navbar-colors.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_navs.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_sidebar-color.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_transparency.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_type.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_utilities.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_variables.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\mixins\_vendor-prefixes.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\plugins\_animate.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\plugins\_chartist.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\plugins\_perfect-scrollbar.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_body.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_bootstrap-material-design-base.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_bootstrap-material-design.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_brand.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_buttons.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_card.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_code.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_colors-map.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_colors.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_custom-forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_drawer.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_dropdown.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_layout.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_list-group.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_menu.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_modals.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_nav.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_pagination.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_shadow.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_snackbar.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_spacing.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_state.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_tables.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_tooltip.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\variables\_type.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_alerts.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_buttons.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_cards.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_checkboxes.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_core-bootstrap.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_dropdown.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_example-pages.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_fixed-plugin.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_footers.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_forms.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_headers.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_images.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_info-areas.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_input-group.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_misc.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_mixins.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_navbar.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_popover.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_popups.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_radios.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_responsive.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_ripples.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_sidebar-and-main-panel.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_social-buttons.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_tables.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_tabs.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_togglebutton.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_tooltip.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_type.scss" />
+    <Content Include="Adminassets\scss\material-dashboard\_variables.scss" />
+    <Content Include="Views\Products\changephotos.cshtml" />
+    <Content Include="Views\Products\ProductsPhotos.cshtml" />
+    <Content Include="Views\ProductTypes\ProductTypePhotos.cshtml" />
+    <Content Include="Views\ProductTypes\changephotos.cshtml" />
+    <Content Include="Views\Shared\Review.cshtml" />
+    <Content Include="Views\Shared\ReviewPartial.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
+    <Content Include="Views\Reviews\Delete.cshtml" />
+    <Content Include="Views\Reviews\Details.cshtml" />
+    <Content Include="Views\Reviews\Edit.cshtml" />
+    <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Shared\ViewReviewPartial.cshtml" />
+    <Content Include="Views\Addresses\Create.cshtml" />
+    <Content Include="Views\Addresses\Delete.cshtml" />
+    <Content Include="Views\Addresses\Details.cshtml" />
+    <Content Include="Views\Addresses\Edit.cshtml" />
+    <Content Include="Views\Addresses\Index.cshtml" />
+    <Content Include="Views\Orders\CheckOut.cshtml" />
+    <Content Include="Views\Orders\ThankYou.cshtml" />
+    <Content Include="Views\Video\Video.cshtml" />
+    <Content Include="Views\Video\Create.cshtml" />
+    <Content Include="Views\Video\Edit.cshtml" />
+    <Content Include="Views\Video\Delete.cshtml" />
+    <Content Include="Views\Testimonial\Create.cshtml" />
+    <Content Include="Views\Testimonial\Edit.cshtml" />
+    <Content Include="Views\Testimonial\Delete.cshtml" />
+    <Content Include="Views\Testimonial\Index.cshtml" />
+    <Content Include="Views\Video\Index.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Home\DeliveryCancellationPolicy.cshtml" />
+    <Content Include="Views\Home\Video.cshtml" />
+    <Content Include="Views\Blogs\Create.cshtml" />
+    <Content Include="Views\Blogs\Delete.cshtml" />
+    <Content Include="Views\Blogs\Details.cshtml" />
+    <Content Include="Views\Blogs\Edit.cshtml" />
+    <Content Include="Views\Blogs\Index.cshtml" />
+    <Content Include="Views\Blogs\Changephotos.cshtml" />
+    <Content Include="Views\Home\blog.cshtml" />
+    <Content Include="Content\css\style.css.map" />
+    <Content Include="Content\scss\style.scss" />
+    <Content Include="Content\scss\_about.scss" />
+    <Content Include="Content\scss\_base.scss" />
+    <Content Include="Content\scss\_blog-details.scss" />
+    <Content Include="Content\scss\_blog-sidebar.scss" />
+    <Content Include="Content\scss\_blog.scss" />
+    <Content Include="Content\scss\_breadcrumb.scss" />
+    <Content Include="Content\scss\_checkout.scss" />
+    <Content Include="Content\scss\_contact.scss" />
+    <Content Include="Content\scss\_footer.scss" />
+    <Content Include="Content\scss\_header.scss" />
+    <Content Include="Content\scss\_hero.scss" />
+    <Content Include="Content\scss\_home-page.scss" />
+    <Content Include="Content\scss\_mixins.scss" />
+    <Content Include="Content\scss\_product.scss" />
+    <Content Include="Content\scss\_responsive.scss" />
+    <Content Include="Content\scss\_shop-details.scss" />
+    <Content Include="Content\scss\_shop.scss" />
+    <Content Include="Content\scss\_shopping-cart.scss" />
+    <Content Include="Content\scss\_variable.scss" />
+    <Content Include="fonts\ElegantIcons.eot" />
+    <Content Include="fonts\ElegantIcons.ttf" />
+    <Content Include="fonts\ElegantIcons.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <None Include="packages.config" />
+    <Content Include="Views\Home\ReturnAndRefundPolicy.cshtml" />
+    <Content Include="Views\Carts\success.cshtml" />
+    <Content Include="Views\Shared\_NavigationPartial.cshtml" />
+    <Content Include="Views\Home\index.cshtml" />
+    <Content Include="Views\Home\RefundAndReturnsPolicy.cshtml" />
+    <Content Include="Views\Home\ShippingAndDeliveryPolicy.cshtml" />
+    <Content Include="Views\Home\CookiesPolicy.cshtml" />
+    <Content Include="Views\Home\TermsAndConditions.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddressesController.cs" />
+    <Compile Include="Controllers\adminController.cs" />
+    <Compile Include="Controllers\BlogsController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductTypesController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
+    <Compile Include="Controllers\SlidersController.cs" />
+    <Compile Include="Controllers\TestimonialController.cs" />
+    <Compile Include="Controllers\UserDetailsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="Filters\AdminAuthFilter.cs" />
+    <Compile Include="Filters\CustomAuthFilter.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191808156_innitial commit.cs" />
+    <Compile Include="Migrations\201909191808156_innitial commit.Designer.cs">
+      <DependentUpon>201909191808156_innitial commit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191811399_innitial commit2.cs" />
+    <Compile Include="Migrations\201909191811399_innitial commit2.Designer.cs">
+      <DependentUpon>201909191811399_innitial commit2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909211017526_order details.cs" />
+    <Compile Include="Migrations\201909211017526_order details.Designer.cs">
+      <DependentUpon>201909211017526_order details.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909211027276_order details and slider.cs" />
+    <Compile Include="Migrations\201909211027276_order details and slider.Designer.cs">
+      <DependentUpon>201909211027276_order details and slider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909211058155_foreign keys.cs" />
+    <Compile Include="Migrations\201909211058155_foreign keys.Designer.cs">
+      <DependentUpon>201909211058155_foreign keys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909250637353_type photo.cs" />
+    <Compile Include="Migrations\201909250637353_type photo.Designer.cs">
+      <DependentUpon>201909250637353_type photo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909260956260_product price.cs" />
+    <Compile Include="Migrations\201909260956260_product price.Designer.cs">
+      <DependentUpon>201909260956260_product price.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910081428078_price to double.cs" />
+    <Compile Include="Migrations\201910081428078_price to double.Designer.cs">
+      <DependentUpon>201910081428078_price to double.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161123299_usertype.cs" />
+    <Compile Include="Migrations\201910161123299_usertype.Designer.cs">
+      <DependentUpon>201910161123299_usertype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910161251406_review table.cs" />
+    <Compile Include="Migrations\201910161251406_review table.Designer.cs">
+      <DependentUpon>201910161251406_review table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910162059498_review changes.cs" />
+    <Compile Include="Migrations\201910162059498_review changes.Designer.cs">
+      <DependentUpon>201910162059498_review changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910191005346_address details3.cs" />
+    <Compile Include="Migrations\201910191005346_address details3.Designer.cs">
+      <DependentUpon>201910191005346_address details3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910192017598_orderdetails orderid2.cs" />
+    <Compile Include="Migrations\201910192017598_orderdetails orderid2.Designer.cs">
+      <DependentUpon>201910192017598_orderdetails orderid2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910200755462_new new.cs" />
+    <Compile Include="Migrations\201910200755462_new new.Designer.cs">
+      <DependentUpon>201910200755462_new new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910210717276_instock.cs" />
+    <Compile Include="Migrations\201910210717276_instock.Designer.cs">
+      <DependentUpon>201910210717276_instock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910231216278_address to order.cs" />
+    <Compile Include="Migrations\201910231216278_address to order.Designer.cs">
+      <DependentUpon>201910231216278_address to order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912281543240_paymentmode.cs" />
+    <Compile Include="Migrations\201912281543240_paymentmode.Designer.cs">
+      <DependentUpon>201912281543240_paymentmode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212101458286_Video Table Added.cs" />
+    <Compile Include="Migrations\202212101458286_Video Table Added.Designer.cs">
+      <DependentUpon>202212101458286_Video Table Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212111221213_Testimonial table added.cs" />
+    <Compile Include="Migrations\202212111221213_Testimonial table added.Designer.cs">
+      <DependentUpon>202212111221213_Testimonial table added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212170922523_Video Table Date created.cs" />
+    <Compile Include="Migrations\202212170922523_Video Table Date created.Designer.cs">
+      <DependentUpon>202212170922523_Video Table Date created.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212170942312_product new migration.cs" />
+    <Compile Include="Migrations\202212170942312_product new migration.Designer.cs">
+      <DependentUpon>202212170942312_product new migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301152008108_product new properties added.cs" />
+    <Compile Include="Migrations\202301152008108_product new properties added.Designer.cs">
+      <DependentUpon>202301152008108_product new properties added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301160944206_productpropertiesadded.cs" />
+    <Compile Include="Migrations\202301160944206_productpropertiesadded.Designer.cs">
+      <DependentUpon>202301160944206_productpropertiesadded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301181243316_SUK product property created.cs" />
+    <Compile Include="Migrations\202301181243316_SUK product property created.Designer.cs">
+      <DependentUpon>202301181243316_SUK product property created.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301210818214_removed product type from product.cs" />
+    <Compile Include="Migrations\202301210818214_removed product type from product.Designer.cs">
+      <DependentUpon>202301210818214_removed product type from product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301210834478_removed brand 2 from product.cs" />
+    <Compile Include="Migrations\202301210834478_removed brand 2 from product.Designer.cs">
+      <DependentUpon>202301210834478_removed brand 2 from product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301211050291_removed prod type map from product.cs" />
+    <Compile Include="Migrations\202301211050291_removed prod type map from product.Designer.cs">
+      <DependentUpon>202301211050291_removed prod type map from product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202301211104144_added mapping table in context.cs" />
+    <Compile Include="Migrations\202301211104144_added mapping table in context.Designer.cs">
+      <DependentUpon>202301211104144_added mapping table in context.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302031509497_two more properties added in sliders.cs" />
+    <Compile Include="Migrations\202302031509497_two more properties added in sliders.Designer.cs">
+      <DependentUpon>202302031509497_two more properties added in sliders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302071627438_blogs models created.cs" />
+    <Compile Include="Migrations\202302071627438_blogs models created.Designer.cs">
+      <DependentUpon>202302071627438_blogs models created.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302230647242_created datatype of blog change.cs" />
+    <Compile Include="Migrations\202302230647242_created datatype of blog change.Designer.cs">
+      <DependentUpon>202302230647242_created datatype of blog change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405062012557_transaction table.cs" />
+    <Compile Include="Migrations\202405062012557_transaction table.Designer.cs">
+      <DependentUpon>202405062012557_transaction table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202406301051109_userandAdrees.cs" />
+    <Compile Include="Migrations\202406301051109_userandAdrees.Designer.cs">
+      <DependentUpon>202406301051109_userandAdrees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202508022123377_new changes.cs" />
+    <Compile Include="Migrations\202508022123377_new changes.designer.cs">
+      <DependentUpon>202508022123377_new changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202509281350481_sliderimproved.cs" />
+    <Compile Include="Migrations\202509281350481_sliderimproved.Designer.cs">
+      <DependentUpon>202509281350481_sliderimproved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510020858034_productvalidations.cs" />
+    <Compile Include="Migrations\202510020858034_productvalidations.Designer.cs">
+      <DependentUpon>202510020858034_productvalidations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\ProductAttribute.cs" />
+    <Compile Include="Models\ProductAttributeValue.cs" />
+    <Compile Include="Models\PurestContext.cs" />
+    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\ImageSaver.cs" />
+    <Compile Include="Models\MappingBlogTag.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductProductTypeMapping.cs" />
+    <Compile Include="Models\ProductType.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Slider.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\Testimonial.cs" />
+    <Compile Include="Models\TransactionDetails.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserDetail.cs" />
+    <Compile Include="Models\Video.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CartVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Products\" />
+    <Folder Include="Images\slider\" />
+    <Folder Include="Images\TypeBanner\" />
+    <Folder Include="Images\Type\" />
+    <Folder Include="loginpg\css\" />
+    <Folder Include="loginpg\fonts\" />
+    <Folder Include="loginpg\js\" />
+    <Folder Include="loginpg\vendor\" />
+    <Folder Include="Views\Encrypt\" />
+    <Folder Include="Views\Session\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909191808156_innitial commit.resx">
+      <DependentUpon>201909191808156_innitial commit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191811399_innitial commit2.resx">
+      <DependentUpon>201909191811399_innitial commit2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909211017526_order details.resx">
+      <DependentUpon>201909211017526_order details.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909211027276_order details and slider.resx">
+      <DependentUpon>201909211027276_order details and slider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909211058155_foreign keys.resx">
+      <DependentUpon>201909211058155_foreign keys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909250637353_type photo.resx">
+      <DependentUpon>201909250637353_type photo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909260956260_product price.resx">
+      <DependentUpon>201909260956260_product price.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910081428078_price to double.resx">
+      <DependentUpon>201910081428078_price to double.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161123299_usertype.resx">
+      <DependentUpon>201910161123299_usertype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161251406_review table.resx">
+      <DependentUpon>201910161251406_review table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910162059498_review changes.resx">
+      <DependentUpon>201910162059498_review changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910191005346_address details3.resx">
+      <DependentUpon>201910191005346_address details3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910192017598_orderdetails orderid2.resx">
+      <DependentUpon>201910192017598_orderdetails orderid2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910200755462_new new.resx">
+      <DependentUpon>201910200755462_new new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910210717276_instock.resx">
+      <DependentUpon>201910210717276_instock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910231216278_address to order.resx">
+      <DependentUpon>201910231216278_address to order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912281543240_paymentmode.resx">
+      <DependentUpon>201912281543240_paymentmode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212101458286_Video Table Added.resx">
+      <DependentUpon>202212101458286_Video Table Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212111221213_Testimonial table added.resx">
+      <DependentUpon>202212111221213_Testimonial table added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212170922523_Video Table Date created.resx">
+      <DependentUpon>202212170922523_Video Table Date created.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212170942312_product new migration.resx">
+      <DependentUpon>202212170942312_product new migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301152008108_product new properties added.resx">
+      <DependentUpon>202301152008108_product new properties added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301160944206_productpropertiesadded.resx">
+      <DependentUpon>202301160944206_productpropertiesadded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301181243316_SUK product property created.resx">
+      <DependentUpon>202301181243316_SUK product property created.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301210818214_removed product type from product.resx">
+      <DependentUpon>202301210818214_removed product type from product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301210834478_removed brand 2 from product.resx">
+      <DependentUpon>202301210834478_removed brand 2 from product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301211050291_removed prod type map from product.resx">
+      <DependentUpon>202301211050291_removed prod type map from product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202301211104144_added mapping table in context.resx">
+      <DependentUpon>202301211104144_added mapping table in context.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302031509497_two more properties added in sliders.resx">
+      <DependentUpon>202302031509497_two more properties added in sliders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302071627438_blogs models created.resx">
+      <DependentUpon>202302071627438_blogs models created.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302230647242_created datatype of blog change.resx">
+      <DependentUpon>202302230647242_created datatype of blog change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405062012557_transaction table.resx">
+      <DependentUpon>202405062012557_transaction table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406301051109_userandAdrees.resx">
+      <DependentUpon>202406301051109_userandAdrees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202508022123377_new changes.resx">
+      <DependentUpon>202508022123377_new changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202509281350481_sliderimproved.resx">
+      <DependentUpon>202509281350481_sliderimproved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510020858034_productvalidations.resx">
+      <DependentUpon>202510020858034_productvalidations.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>47545</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:47545/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
